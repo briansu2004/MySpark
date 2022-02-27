@@ -32,7 +32,7 @@ But Spark
 
 - CPU
 
-## Keywords
+## Keywords - add to CV
 
 Spark SQL
 
@@ -52,6 +52,20 @@ Scala / Python: Dynamic Type Inference
 
 But the best practice is - don't let Scala to guess the data type.
 
+Sprak Streaming vs Apache Storm vs Apache Flink vs Kafka Streams
+
+Micro batch architecture
+
+Dynamic Resource Allocation
+
+Databricks
+
+RDD
+
+Spark Configuration Object (settings and configuration)
+
+Create Spark configuration Object -> Initialize the SparkContext object with Spark configuration object -> Spark Session
+
 ## Screenshot
 
 ![](image/README/spark_components_01.png)
@@ -65,3 +79,59 @@ But the best practice is - don't let Scala to guess the data type.
 ![](image/README/pyspark_01.png)
 
 ![](image/README/scala_iwq_lazy.png)
+
+![](image/README/stream_processing_workflow.png)
+
+![](image/README/streaming_context.png)
+
+![](image/README/processing_spark_dstreams.png)
+
+![](image/README/streaming_source_and_destination.png)
+
+![](image/README/spark_rdd.png)
+
+![](image/README/rdd_workflow.png)
+
+![](image/README/type_of_rdd.png)
+
+![](image/README/ParallelCollectionRDD.png)
+
+![](image/README/ShuffledRDD.png)
+
+![](image/README/PairRDD.png)
+
+![](image/README/HadoopRDD.png)
+
+![](image/README/operations_on_RDD.png)
+
+![](image/README/operations_on_RDD_transformation.png)
+
+![](image/README/list_of_rdd_transformations.png)
+
+![](image/README/spark_example_01.png)
+
+![](image/README/spark_example_02.png)
+
+![](image/README/spark_example_03.png)
+
+![](image/README/spark_dataframe.png)
+
+![](image/README/spark_dataframe_example_01.png)
+
+![](image/README/spark_dataframe_example_02.png)
+
+![](image/README/spark_sql_context.png)
+
+![](image/README/spark_dataframe_example_03.png)
+
+![](image/README/spark_dataframe_example_04.png)
+
+![](image/README/spark_dataframe_example_05.png)
+
+![](image/README/spark_dataframe_example_06.png)
+
+![](image/README/spark_dataframe_example_07.png)
+
+![](image/README/spark_dataframe_example_08.png)
+
+![](image/README/spark_dataframe_example_09.png)
