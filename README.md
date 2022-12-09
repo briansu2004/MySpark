@@ -6,7 +6,7 @@ Spark is written in Scala.
 
 A credit card company needs to handel tons of fraud data in realtime.
 
-If Hadoop & MapReduce,
+With Hadoop & MapReduce
 
 - need to install Hive/Impala for SQL
 
@@ -14,7 +14,7 @@ If Hadoop & MapReduce,
 
 - need to install mahout for machine learning
 
-But Spark
+With Spark
 
 - Spark streaming for data streaming process
 
@@ -68,7 +68,7 @@ Create Spark configuration Object
 -> Spark Session
 ```
 
-## Screenshot
+## Images
 
 ![](image/README/spark_components_01.png)
 
