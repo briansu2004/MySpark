@@ -2,6 +2,8 @@
 
 Spark is written in Scala.
 
+Apache Spark is a unified analytics engine for processing large volumes of data. It can run workloads 100 times faster and offers over 80 high-level operators that make it easy to build parallel apps. Spark can run on Hadoop, Apache Mesos, Kubernetes, standalone, or in the cloud, and can access data from multiple sources.
+
 ## A good example for Spark to beat MapReduce
 
 A credit card company needs to handel tons of fraud data in realtime.
