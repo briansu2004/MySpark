@@ -1,7 +1,5 @@
 # MySpark
 
-My Spark
-
 Spark is written in Scala.
 
 ## A good example for Spark to beat MapReduce
@@ -32,7 +30,7 @@ But Spark
 
 - CPU
 
-## Keywords - add to CV
+## Keywords
 
 Spark SQL
 
@@ -64,7 +62,11 @@ RDD
 
 Spark Configuration Object (settings and configuration)
 
-Create Spark configuration Object -> Initialize the SparkContext object with Spark configuration object -> Spark Session
+```dos
+Create Spark configuration Object 
+-> Initialize the SparkContext object with Spark configuration object 
+-> Spark Session
+```
 
 ## Screenshot
 
