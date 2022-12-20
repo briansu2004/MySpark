@@ -36,7 +36,7 @@ Apache Spark is a unified analytics engine for processing large volumes of data.
 - Spark Streaming with Kafka
   - Streaming from Kafka source
   - Working with Kafka sinks
-  - Multi=query Streams Application
+  - Multi-query Streams Application
   - Kafka serialization and deserialization for Spark
   - Creating Kafka AVRO sinks
   - Working with Kafka AVRO source
