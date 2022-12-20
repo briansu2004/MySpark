@@ -4,6 +4,28 @@ Spark is written in Scala.
 
 Apache Spark is a unified analytics engine for processing large volumes of data. It can run workloads 100 times faster and offers over 80 high-level operators that make it easy to build parallel apps. Spark can run on Hadoop, Apache Mesos, Kubernetes, standalone, or in the cloud, and can access data from multiple sources.
 
+## Spark Streaming
+
+### Spark Streaming With Scala
+
+- Spark Structured Streaming
+  - Streaming DataFrames
+  - Streaming Aggregations
+  - Streaming Joins
+  - Streaming Datasets
+- Low-Level Spark Streaming with DStreams
+  - DStreams
+  - DStreams Transformations
+- Spark Streaming Integrations
+  - Kafka & Structured Streaming
+  - Kafka & DStreams
+  - JDBC with PostgreSQL
+  - Cassandra
+- Advanced Spark Streaming
+  - Event Time Windows
+  - Processing Time Windows
+  - Watermarking
+
 ## A good example for Spark to beat MapReduce
 
 A credit card company needs to handel tons of fraud data in realtime.
