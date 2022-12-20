@@ -26,6 +26,33 @@ Apache Spark is a unified analytics engine for processing large volumes of data.
   - Processing Time Windows
   - Watermarking
 
+### Real-time Stream Processing applications using Apache Spark
+
+- Spark Structured Streaming
+  - Streaming APIs: DStreams vs Structured Streaming
+  - Stream processing model
+  - Streaming sources, sinks and output mode
+  - Fault tolerance and restarts
+- Spark Streaming with Kafka
+  - Streaming from Kafka source
+  - Working with Kafka sinks
+  - Multi=query Streams Application
+  - Kafka serialization and deserialization for Spark
+  - Creating Kafka AVRO sinks
+  - Working with Kafka AVRO source
+- Windows and Aggregates
+  - Stateless vs Stateful transformations
+  - Event time and Windowing
+  - Tumbling Window aggregate
+  - Watermarking your windows
+  - Watermark and output modes
+  - Sliding Windows
+- Stream Processing and Joins
+  - Join Stream to static source
+  - Join Stream to another Stream
+  - Streaming Watermark
+  - Streaming Outer Joins
+
 ## A good example for Spark to beat MapReduce
 
 A credit card company needs to handel tons of fraud data in realtime.
