@@ -341,7 +341,6 @@ Low-level API: RDDs
 
 sparkContext
 
-
 ## CPU cores
 
 Looks like the mbp is much better than Windows for Spark Scala.
@@ -350,6 +349,11 @@ Looks like the mbp is much better than Windows for Spark Scala.
 - No need to set up winutils.exe, hadoop and spark in Windows
 - Faster becuse of the multiple cores
 
+![1671822490152](image/README/1671822490152.png)
+
+![1671822504397](image/README/1671822504397.png)
+
+![1671822516839](image/README/1671822516839.png)
 
 ## Netcat
 
@@ -382,6 +386,3 @@ e.g.
 ```dos
 nc -lk 12345
 ```
-
-
-
