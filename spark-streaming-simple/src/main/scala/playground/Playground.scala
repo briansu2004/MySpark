@@ -35,7 +35,7 @@ object Playground extends App {
   val ssc = new StreamingContext(sc, Seconds(2))
 
   /**
-    * A "manual" sequence of rows describing cars, fetched from cars.json in the data folder.
+    * A "manual" sequence of rows describing cars, fetched from mycars.json in the data folder.
     */
   val cars = Seq(
     Row("chevrolet chevelle malibu",18.0,8L,307.0,130L,3504L,12.0,"1970-01-01","USA"),

@@ -96,6 +96,8 @@ Perform the following analytics on the data
 
 ## Keywords
 
+Spark Structured API
+
 Spark SQL
 
 Spark Streaming
@@ -243,3 +245,62 @@ Spark can run on different cluster technologies like the Hadoop file-system, YAR
 ![](image/README/spark_dataframe_example_08.png)
 
 ![](image/README/spark_dataframe_example_09.png)
+
+## Keywords + Code
+
+Spark Structured API
+
+```dos
+org.apache.spark.sql.SparkSession.Builder
+def master(master: String): SparkSession.Builder
+Sets the Spark master URL to connect to, such as "local" to run locally, "local[4]" to run locally with 4 cores, or "spark://master:7077" to run on a Spark standalone cluster.
+
+org.apache.spark.sql.SparkSession.Builder
+def getOrCreate(): SparkSession
+Gets an existing SparkSession or, if there is no existing one, creates a new one based on the options set in this builder.
+This method first checks whether there is a valid thread-local SparkSession, and if yes, return that one. It then checks whether there is a valid global default SparkSession, and if yes, return that one. If no valid global default SparkSession exists, the method creates a new SparkSession and assigns the newly created SparkSession as the global default.
+In case an existing SparkSession is returned, the non-static config options specified in this builder will be applied to the existing SparkSession.
+
+e.g.
+
+  // the entry point to the Spark structured API
+  val spark = SparkSession.builder()
+    .appName("Spark Recap")
+    .master("local[2]")
+    .getOrCreate()
+```
+
+DF
+
+```dos
+org.apache.spark.sql.SparkSession
+def read: DataFrameReader
+Returns a DataFrameReader that can be used to read non-streaming data in as a DataFrame.
+sparkSession.read.parquet("/path/to/file.parquet")
+sparkSession.read.schema(schema).json("/path/to/file.json")
+
+e.g.
+  // read a DF
+  val cars = spark.read
+    .format("json")
+    .option("inferSchema", "true")
+    .load("src/main/resources/data/cars")
+
+
+org.apache.spark.sql.Dataset
+@varargs
+def select(cols: Column*): sql.DataFrame
+Selects a set of column based expressions.
+ds.select($"colA", $"colB" + 1)
+
+e.g.
+
+  // select
+  val usefulCarsData = cars.select(
+    col("Name"), // column object
+    $"Year", // another column object (needs spark implicits)
+    (col("Weight_in_lbs") / 2.2).as("Weight_in_kg"),
+    expr("Weight_in_lbs / 2.2").as("Weight_in_kg_2")
+  )
+
+```
