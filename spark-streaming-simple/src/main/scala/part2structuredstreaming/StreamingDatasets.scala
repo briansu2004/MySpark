@@ -65,7 +65,6 @@ object StreamingDatasets {
 
   def ex2() = {
     val carsDS = readCars()
-
     carsDS.select(avg(col("Horsepower")))
       .writeStream
       .format("console")
@@ -76,10 +75,8 @@ object StreamingDatasets {
 
   def ex3() = {
     val carsDS = readCars()
-
     val carCountByOrigin = carsDS.groupBy(col("Origin")).count() // option 1
     val carCountByOriginAlt = carsDS.groupByKey(car => car.Origin).count() // option 2 with the Dataset API
-
     carCountByOriginAlt
       .writeStream
       .format("console")
@@ -89,6 +86,8 @@ object StreamingDatasets {
   }
 
   def main(args: Array[String]): Unit = {
+//    ex1()
+//    ex2()
     ex3()
   }
 }
