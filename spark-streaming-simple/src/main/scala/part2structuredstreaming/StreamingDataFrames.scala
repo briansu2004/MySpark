@@ -1,9 +1,10 @@
 package part2structuredstreaming
 
-import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.apache.spark.sql.functions._
 import common._
+import org.apache.spark.sql.functions._
 import org.apache.spark.sql.streaming.Trigger
+import org.apache.spark.sql.{DataFrame, SparkSession}
+
 import scala.concurrent.duration._
 
 object StreamingDataFrames {
@@ -18,7 +19,7 @@ object StreamingDataFrames {
     val lines: DataFrame = spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12345)
+      .option("port", 2023)
       .load()
 
     // transformation
@@ -56,7 +57,7 @@ object StreamingDataFrames {
     val lines: DataFrame = spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12345)
+      .option("port", 2023)
       .load()
 
     // write the lines DF at a certain trigger
@@ -64,8 +65,8 @@ object StreamingDataFrames {
       .format("console")
       .outputMode("append")
       .trigger(
-        // Trigger.ProcessingTime(2.seconds) // every 2 seconds run the query
-        // Trigger.Once() // single batch, then terminate
+//         Trigger.ProcessingTime(2.seconds) // every 2 seconds run the query
+//         Trigger.Once() // single batch, then terminate
         Trigger.Continuous(2.seconds) // experimental, every 2 seconds create a batch with whatever you have
       )
       .start()
@@ -73,6 +74,7 @@ object StreamingDataFrames {
   }
 
   def main(args: Array[String]): Unit = {
-    demoTriggers()
+    readFromFiles()
+//    demoTriggers()
   }
 }

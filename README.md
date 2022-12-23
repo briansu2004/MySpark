@@ -345,6 +345,10 @@ sparkContext
 
 ![1671828590517](image/README/1671828590517.png)
 
+Read the streaming files
+
+![1671830293105](image/README/1671830293105.png)
+
 ## CPU cores
 
 Looks like the mbp is much better than Windows for Spark Scala.

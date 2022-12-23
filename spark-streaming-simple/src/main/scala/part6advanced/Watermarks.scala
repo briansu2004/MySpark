@@ -38,7 +38,7 @@ object Watermarks {
     val dataDF = spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12345)
+      .option("port", 2023)
       .load()
       .as[String]
       .map { line =>
@@ -79,7 +79,7 @@ object Watermarks {
 
 // sending data "manually" through socket to be as deterministic as possible
 object DataSender {
-  val serverSocket = new ServerSocket(12345)
+  val serverSocket = new ServerSocket(2023)
   val socket = serverSocket.accept() // blocking call
   val printer = new PrintStream(socket.getOutputStream)
 

@@ -14,7 +14,7 @@ object StreamingAggregations {
     val lines: DataFrame = spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12345)
+      .option("port", 2023)
       .load()
 
     val lineCount: DataFrame = lines.selectExpr("count(*) as lineCount")
@@ -33,7 +33,7 @@ object StreamingAggregations {
     val lines: DataFrame = spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12345)
+      .option("port", 2023)
       .load()
 
     // aggregate here
@@ -51,7 +51,7 @@ object StreamingAggregations {
     val lines: DataFrame = spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12345)
+      .option("port", 2023)
       .load()
 
     // counting occurrences of the "name" value
@@ -68,7 +68,7 @@ object StreamingAggregations {
   }
 
   def main(args: Array[String]): Unit = {
-    // nc -lk 12345
+    // nc -lk 2023
     
     //    streamingCount()
     numericalAggregations(sum)

@@ -21,7 +21,7 @@ object StreamingDatasets {
     spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12345)
+      .option("port", 2023)
       .load() // DF with single string column "value"
       .select(from_json(col("value"), carsSchema).as("car")) // composite column (struct)
       .selectExpr("car.*") // DF with multiple columns

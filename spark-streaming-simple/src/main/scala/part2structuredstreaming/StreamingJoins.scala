@@ -31,7 +31,7 @@ object StreamingJoins {
     val streamedBandsDF = spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12345)
+      .option("port", 2023)
       .load() // a DF with a single column "value" of type String
       .select(from_json(col("value"), bandsSchema).as("band"))
       .selectExpr("band.id as id", "band.name as name", "band.hometown as hometown", "band.year as year")
@@ -57,7 +57,7 @@ object StreamingJoins {
     val streamedBandsDF = spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12345)
+      .option("port", 2023)
       .load() // a DF with a single column "value" of type String
       .select(from_json(col("value"), bandsSchema).as("band"))
       .selectExpr("band.id as id", "band.name as name", "band.hometown as hometown", "band.year as year")

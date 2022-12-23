@@ -56,7 +56,7 @@ object IntegratingKafkaDStreams {
   }
 
   def writeToKafka() = {
-    val inputData = ssc.socketTextStream("localhost", 12345)
+    val inputData = ssc.socketTextStream("localhost", 2023)
 
     // transform data
     val processedData = inputData.map(_.toUpperCase())

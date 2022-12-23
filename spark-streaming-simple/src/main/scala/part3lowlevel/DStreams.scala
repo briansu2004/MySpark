@@ -34,7 +34,7 @@ object DStreams {
    */
 
   def readFromSocket() = {
-    val socketStream: DStream[String] = ssc.socketTextStream("localhost", 12345)
+    val socketStream: DStream[String] = ssc.socketTextStream("localhost", 2023)
 
     // transformation = lazy
     val wordsStream: DStream[String] = socketStream.flatMap(line => line.split(" "))

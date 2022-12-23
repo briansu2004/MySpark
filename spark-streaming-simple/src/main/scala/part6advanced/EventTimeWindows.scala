@@ -21,7 +21,7 @@ object EventTimeWindows {
   def readPurchasesFromSocket() = spark.readStream
     .format("socket")
     .option("host", "localhost")
-    .option("port", 12345)
+    .option("port", 2023)
     .load()
     .select(from_json(col("value"), onlinePurchaseSchema).as("purchase"))
     .selectExpr("purchase.*")
