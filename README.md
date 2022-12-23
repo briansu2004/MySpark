@@ -340,3 +340,20 @@ e.g.
 Low-level API: RDDs
 
 sparkContext
+
+
+## CPU cores
+
+Looks like the mbp is much better than Windows for Spark Scala.
+
+- JDK is free
+- No need to set up winutils.exe, hadoop and spark in Windows
+- Faster becuse of the multiple cores
+
+
+
+
+
+
+
+
