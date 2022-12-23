@@ -26,7 +26,7 @@ object StreamingDataFrames {
     val shortLines: DataFrame = lines.filter(length(col("value")) <= 5)
 
     // tell between a static vs a streaming DF
-    println(shortLines.isStreaming)
+    println(shortLines.isStreaming)  // true
 
     // consuming a DF
     val query = shortLines.writeStream
@@ -74,7 +74,8 @@ object StreamingDataFrames {
   }
 
   def main(args: Array[String]): Unit = {
-    readFromFiles()
+    readFromSocket()
+//    readFromFiles()
 //    demoTriggers()
   }
 }
