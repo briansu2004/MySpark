@@ -71,8 +71,8 @@ object StreamingAggregations {
     // nc -lk 12345
     
     //    streamingCount()
-//    numericalAggregations(sum)
-    numericalAggregations(avg)
+    numericalAggregations(sum)
+//    numericalAggregations(avg)
 //    groupNames()
   }
 }
