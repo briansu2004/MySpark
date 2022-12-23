@@ -31,7 +31,8 @@ object SparkRecap {
   val carsWeights = cars.selectExpr("Weight_in_lbs / 2.2")
 
   // filter
-  val europeanCars = cars.where(col("Origin") =!= "USA")
+  val nonUSCars = cars.where(col("Origin") =!= "USA")
+  val europeanCars = cars.where(col("Origin") === "Europe")
 
   // aggregations
   val averageHP = cars.select(avg(col("Horsepower")).as("average_hp")) // sum, meam, stddev, min, max
@@ -92,9 +93,13 @@ object SparkRecap {
 
   def main(args: Array[String]): Unit = {
     // showing a DF to the console
-    cars.show()
-    cars.printSchema()
-
+//    cars.show()
+//    cars.printSchema()
+//    usefulCarsData.show()
+//    carsWeights.show()
+//    nonUSCars.show()
+//    europeanCars.show()
+//    averageHP.show()
 
 
   }

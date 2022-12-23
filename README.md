@@ -269,6 +269,8 @@ vs
 
 ![1671806332401](image/README/1671806332401.png)
 
+DF - joining
+
 ```dos
 org.apache.spark.sql.Dataset
 def join(right: Dataset[_], joinExprs: Column): sql.DataFrame
@@ -276,4 +278,23 @@ Inner join with another DataFrame, using the given join expression.
 // The following two are equivalent:
 df1.join(df2, $"df1Key" === $"df2Key")
 df1.join(df2).where($"df1Key" === $"df2Key")
+
+e.g.
+
+  // joining
+  val guitarPlayers = spark.read
+    .option("inferSchema", "true")
+    .json("src/main/resources/data/guitarPlayers")
+
+  val bands = spark.read
+    .option("inferSchema", "true")
+    .json("src/main/resources/data/bands")
+
+  val guitaristsBands = guitarPlayers.join(bands, guitarPlayers.col("band") === bands.col("id"))
+  /*
+    join types
+    - inner: only the matching rows are kept
+    - left/right/full outer join
+    - semi/anti
+   */
 ```
