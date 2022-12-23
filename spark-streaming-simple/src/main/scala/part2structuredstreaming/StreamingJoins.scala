@@ -65,7 +65,7 @@ object StreamingJoins {
     val streamedGuitaristsDF = spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12346)
+      .option("port", 9876)
       .load()
       .select(from_json(col("value"), guitarPlayers.schema).as("guitarPlayer"))
       .selectExpr("guitarPlayer.id as id", "guitarPlayer.name as name", "guitarPlayer.guitars as guitars", "guitarPlayer.band as band")
@@ -87,6 +87,7 @@ object StreamingJoins {
   }
 
   def main(args: Array[String]): Unit = {
+//    joinStreamWithStatic()
     joinStreamWithStream()
   }
 }

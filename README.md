@@ -422,7 +422,7 @@ Enable the communication
 e.g.
 
 ```dos
-ncat -l -p 12345
+ncat -l -p 2023
 ```
 
 ncat for Windows
