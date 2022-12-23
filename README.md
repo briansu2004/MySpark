@@ -154,7 +154,7 @@ e.g.
     .getOrCreate()
 ```
 
-DF
+DF - read
 
 ```dos
 org.apache.spark.sql.SparkSession
@@ -169,8 +169,11 @@ e.g.
     .format("json")
     .option("inferSchema", "true")
     .load("src/main/resources/data/cars")
+```
 
+DF - select
 
+```dos
 org.apache.spark.sql.Dataset
 @varargs
 def select(cols: Column*): sql.DataFrame
@@ -186,8 +189,11 @@ e.g.
     (col("Weight_in_lbs") / 2.2).as("Weight_in_kg"),
     expr("Weight_in_lbs / 2.2").as("Weight_in_kg_2")
   )
+```
 
+DF - selectExpr
 
+```dos
 org.apache.spark.sql.Dataset
 @varargs
 def selectExpr(exprs: String*): sql.DataFrame
@@ -199,8 +205,11 @@ ds.select(expr("colA"), expr("colB as newName"), expr("abs(colC)"))
 e.g.
 
   val carsWeights = cars.selectExpr("Weight_in_lbs / 2.2")
+```
 
+DF - where / filter
 
+```dos
 org.apache.spark.sql.Dataset
 def where(condition: Column): Dataset[T]
 Filters rows using the given condition. This is an alias for filter.
@@ -212,8 +221,11 @@ e.g.
 
   // filter
   val europeanCars = cars.where(col("Origin") =!= "USA")
+```
 
+DF - aggregations / avg, sum, meam, stddev, min, max
 
+```dos
 org.apache.spark.sql.functions
 def avg(e: Column): Column
 Aggregate function: returns the average of the values in a group.
@@ -221,9 +233,12 @@ Aggregate function: returns the average of the values in a group.
 e.g.
 
   // aggregations
-  val averageHP = cars.select(avg(col("Horsepower")).as("average_hp")) // sum, meam, stddev, min, max
+  val averageHP = cars.select(avg(col("Horsepower")).as("average_hp"))
+```
 
+DF - groupBy / grouping
 
+```dos
 org.apache.spark.sql.Dataset
 @varargs
 def groupBy(cols: Column*): RelationalGroupedDataset
@@ -253,3 +268,12 @@ Findings
 vs
 
 ![1671806332401](image/README/1671806332401.png)
+
+```dos
+org.apache.spark.sql.Dataset
+def join(right: Dataset[_], joinExprs: Column): sql.DataFrame
+Inner join with another DataFrame, using the given join expression.
+// The following two are equivalent:
+df1.join(df2, $"df1Key" === $"df2Key")
+df1.join(df2).where($"df1Key" === $"df2Key")
+```
