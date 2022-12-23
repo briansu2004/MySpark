@@ -303,4 +303,69 @@ e.g.
     expr("Weight_in_lbs / 2.2").as("Weight_in_kg_2")
   )
 
+
+org.apache.spark.sql.Dataset
+@varargs
+def selectExpr(exprs: String*): sql.DataFrame
+Selects a set of SQL expressions. This is a variant of select that accepts SQL expressions.
+// The following are equivalent:
+ds.selectExpr("colA", "colB as newName", "abs(colC)")
+ds.select(expr("colA"), expr("colB as newName"), expr("abs(colC)"))
+
+e.g.
+
+  val carsWeights = cars.selectExpr("Weight_in_lbs / 2.2")
+
+
+org.apache.spark.sql.Dataset
+def where(condition: Column): Dataset[T]
+Filters rows using the given condition. This is an alias for filter.
+// The following are equivalent:
+peopleDs.filter($"age" > 15)
+peopleDs.where($"age" > 15)
+
+e.g.
+
+  // filter
+  val europeanCars = cars.where(col("Origin") =!= "USA")
+
+
+org.apache.spark.sql.functions
+def avg(e: Column): Column
+Aggregate function: returns the average of the values in a group.
+
+e.g.
+
+  // aggregations
+  val averageHP = cars.select(avg(col("Horsepower")).as("average_hp")) // sum, meam, stddev, min, max
+
+
+org.apache.spark.sql.Dataset
+@varargs
+def groupBy(cols: Column*): RelationalGroupedDataset
+Groups the Dataset using the specified columns, so we can run aggregation on them. See RelationalGroupedDataset for all the available aggregate functions.
+// Compute the average for all numeric columns grouped by department.
+ds.groupBy($"department").avg()
+
+// Compute the max age and average salary, grouped by department and gender.
+ds.groupBy($"department", $"gender").agg(Map(
+  "salary" -> "avg",
+  "age" -> "max"
+))
+
+e.g.
+
+  // grouping
+  val countByOrigin = cars
+    .groupBy(col("Origin")) // a RelationalGroupedDataset
+    .count()
+
 ```
+
+Findings
+
+![1671806256215](image/README/1671806256215.png)
+
+vs
+
+![1671806332401](image/README/1671806332401.png)
