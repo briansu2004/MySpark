@@ -351,9 +351,37 @@ Looks like the mbp is much better than Windows for Spark Scala.
 - Faster becuse of the multiple cores
 
 
+## Netcat
 
+Netcat Fundamentals
 
+```dos
+nc [options] [host] [port] – by default this will execute a port scan
 
+nc -l [host] [port] – initiates a listener on the given port
+```
+
+Netcat Command Flags
+
+```dos
+nc -4 – use IPv4 only
+
+nc -6 – use IPv6
+
+nc -u – use UDP instead of TCP
+
+nc -k -l – continue listening after disconnection
+
+nc -n – skip DNS lookups
+
+nc -v – provide verbose output
+```
+
+e.g.
+
+```dos
+nc -lk 12345
+```
 
 
 
