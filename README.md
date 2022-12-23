@@ -134,6 +134,8 @@ Create Spark configuration Object
 
 Spark Structured API
 
+SparkSession
+
 ```dos
 org.apache.spark.sql.SparkSession.Builder
 def master(master: String): SparkSession.Builder
@@ -336,3 +338,5 @@ e.g.
 ```
 
 Low-level API: RDDs
+
+sparkContext
