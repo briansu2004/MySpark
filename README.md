@@ -485,3 +485,12 @@ Options taking a time assume seconds. Append 'ms' for milliseconds,
 
 See the ncat(1) manpage for full options, descriptions and usage examples
 ```
+
+## Useful IntelliJ shortcuts
+
+To me, the IJ menus and shortcuts were designed worse than VSCode.
+
+Here are useful shortcuts in Windows:
+
+- Go back to last place: Ctrl + Alt + Left
+- Go inside the method: Ctrl + B (called Go To -> GoTo or Navigate -> GoTo - should be 1 click less)
