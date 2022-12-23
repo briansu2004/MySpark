@@ -341,6 +341,8 @@ Low-level API: RDDs
 
 sparkContext
 
+![1671828590517](image/README/1671828590517.png)
+
 ## CPU cores
 
 Looks like the mbp is much better than Windows for Spark Scala.
@@ -381,8 +383,32 @@ nc -n – skip DNS lookups
 nc -v – provide verbose output
 ```
 
+### Netcat in MacOs
+
+```dos
+brew install netcat
+```
+
 e.g.
 
 ```dos
 nc -lk 12345
+```
+
+### Netcat in Windows
+
+Install in admin mode
+
+```dos
+nmap-7.93-setup.exe
+```
+
+Also run it in admin mode
+
+Enable the communication
+
+e.g.
+
+```dos
+ncat -l -p 12345
 ```

@@ -1,4 +1,4 @@
-name := "udemy-spark-streaming"
+name := "spark-streaming-simple"
 
 version := "0.1"
 
