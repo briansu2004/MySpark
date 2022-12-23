@@ -73,6 +73,19 @@ With Spark
 
 - 100x faster than MapReduce
 
+## Spark mini project
+
+Perform the following analytics on the data
+
+- Show the number of students in the file.
+- Show the total marks achieved by Female and Male students
+- Show the total number of students that have passed and failed. 50+ marks are required to pass the course.
+- Show the total number of students enrolled per course
+- Show the total marks that students have achieved per course
+- Show the average marks that students have achieved per course
+- Show the minimum and maximum marks achieved per course
+- Show the average age of male and female students
+
 ## Partitioning considerations
 
 - Number of executors
