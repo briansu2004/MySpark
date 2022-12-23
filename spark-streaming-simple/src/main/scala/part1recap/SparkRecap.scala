@@ -93,6 +93,7 @@ object SparkRecap {
 
   // RDD -> DF
   val numbersDF = numbersRDD.toDF("number") // you lose type info, you get SQL capability
+  val doublesDF = doubles.toDF("number") // you lose type info, you get SQL capability
 
   // RDD -> DS
   val numbersDS = spark.createDataset(numbersRDD)
@@ -105,8 +106,8 @@ object SparkRecap {
 
   def main(args: Array[String]): Unit = {
     // showing a DF to the console
-//    cars.show()
-//    cars.printSchema()
+   cars.show()
+   cars.printSchema()
 //    usefulCarsData.show()
 //    carsWeights.show()
 //    nonUSCars.show()
@@ -118,7 +119,11 @@ object SparkRecap {
 //    guitaristsBands.show()
 //    guitarPlayersDS.show()
 //    americanCars.show()
-    japaneseCars.show()
-    nonUSACars.show()
+//    japaneseCars.show()
+//    nonUSACars.show()
+//    numbersRDD.map(println(_))
+//    numbersDF.show()
+//    doublesDF.show()
+//    numbersDS.show()    
   }
 }
