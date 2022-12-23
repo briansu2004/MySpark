@@ -68,6 +68,11 @@ object StreamingAggregations {
   }
 
   def main(args: Array[String]): Unit = {
-    groupNames()
+    // nc -lk 12345
+    
+    //    streamingCount()
+//    numericalAggregations(sum)
+    numericalAggregations(avg)
+//    groupNames()
   }
 }
