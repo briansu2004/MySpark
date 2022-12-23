@@ -298,3 +298,41 @@ e.g.
     - semi/anti
    */
 ```
+
+No differences?
+
+```dos
+  // datasets = typed distributed collection of objects
+  case class GuitarPlayer(id: Long, name: String, guitars: Seq[Long], band: Long)
+  val guitarPlayersDS = guitarPlayers.as[GuitarPlayer] // needs spark.implicits
+  guitarPlayersDS.map(_.name)
+```
+
+vs
+
+```dos
+  // datasets = typed distributed collection of objects
+  case class GuitarPlayer(id: Long, name: String, guitars: Seq[Long], band: Long)
+  val guitarPlayersDS = guitarPlayers.as[GuitarPlayer] // needs spark.implicits
+  // guitarPlayersDS.map(_.name)
+```
+
+![1671808643317](image/README/1671808643317.png)
+
+Spark SQL
+
+```dos
+org.apache.spark.sql.Dataset
+def createOrReplaceTempView(viewName: String): Unit
+Creates a local temporary view using the given name. The lifetime of this temporary view is tied to the SparkSession that was used to create this Dataset.
+
+e.g.
+
+  val nonUSACars = spark.sql(
+    """
+      |select Name, Origin from cars where Origin != 'USA'
+    """.stripMargin
+  )
+```
+
+Low-level API: RDDs

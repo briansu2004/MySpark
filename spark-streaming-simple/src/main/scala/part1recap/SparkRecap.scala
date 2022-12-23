@@ -62,13 +62,25 @@ object SparkRecap {
   // datasets = typed distributed collection of objects
   case class GuitarPlayer(id: Long, name: String, guitars: Seq[Long], band: Long)
   val guitarPlayersDS = guitarPlayers.as[GuitarPlayer] // needs spark.implicits
-  guitarPlayersDS.map(_.name)
+  // guitarPlayersDS.map(_.name)
 
   // Spark SQL
   cars.createOrReplaceTempView("cars")
   val americanCars = spark.sql(
     """
       |select Name from cars where Origin = 'USA'
+    """.stripMargin
+  )
+
+  val japaneseCars = spark.sql(
+    """
+      |select Name, Origin from cars where Origin = 'Japan'
+    """.stripMargin
+  )
+
+  val nonUSACars = spark.sql(
+    """
+      |select Name, Origin from cars where Origin != 'USA'
     """.stripMargin
   )
 
@@ -100,7 +112,13 @@ object SparkRecap {
 //    nonUSCars.show()
 //    europeanCars.show()
 //    averageHP.show()
-
-
+//    countByOrigin.show()
+//    guitarPlayers.show()
+//    bands.show()
+//    guitaristsBands.show()
+//    guitarPlayersDS.show()
+//    americanCars.show()
+    japaneseCars.show()
+    nonUSACars.show()
   }
 }
