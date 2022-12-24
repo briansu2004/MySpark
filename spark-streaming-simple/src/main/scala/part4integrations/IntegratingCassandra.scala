@@ -97,9 +97,11 @@ object IntegratingCassandra {
 //    create table public.cars("Name" text primary key, "Horsepower" int);
 //    select * from public.cars;
 
-    // writeStreamToCassandraInBatches()
+//    writeStreamToCassandra()
 
-    writeStreamToCassandra()
+    writeStreamToCassandraInBatches()
+
+    //    select * from public.cars;
 
     // docker compose down
   }
