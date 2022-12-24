@@ -93,7 +93,7 @@ object IntegratingKafkaDStreams {
 
     // docker exec -it rockthejvm-sparkstreaming-kafka bash
     // cd /opt/kafka       // cd /opt/kafka_2.13-2.8.1
-
+    // bin/kfaka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic rockthejvm
 
     // bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic rockthejvm
 //    readFromKafka()
@@ -101,7 +101,6 @@ object IntegratingKafkaDStreams {
     // ncat -l -p 2023
     // bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic rockthejvm
     writeToKafka()
-
 
     // docker compose down
   }

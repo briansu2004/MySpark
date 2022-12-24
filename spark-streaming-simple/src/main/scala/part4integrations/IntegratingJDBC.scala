@@ -29,6 +29,8 @@ object IntegratingJDBC {
         // each executor can control the batch
         // batch is a STATIC Dataset/DataFrame
 
+        // all the files in the "src/main/resources/data/cars" folder
+        // will be loaded to the table "public.cars"
         batch.write
           .format("jdbc")
           .option("driver", driver)
@@ -40,10 +42,13 @@ object IntegratingJDBC {
       }
       .start()
       .awaitTermination()
-
   }
 
   def main(args: Array[String]): Unit = {
+    // docker compose up
+
     writeStreamToPostgres()
+
+    // docker compose down
   }
 }
