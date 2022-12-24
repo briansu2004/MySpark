@@ -5,7 +5,7 @@
 - Docker
 - Repo
 - Open with IntelliJ as an SBT project
-- In a terminal window, run `docker-compose up` to build and start the containers
+- In a terminal window, run `docker compose up` to build and start the containers
 
 ## Tags
 

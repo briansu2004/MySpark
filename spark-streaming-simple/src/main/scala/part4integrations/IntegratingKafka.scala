@@ -68,6 +68,18 @@ object IntegratingKafka {
   }
 
   def main(args: Array[String]): Unit = {
+    // docker compose up
+
+    // docker exec -it rockthejvm-sparkstreaming-kafka bash
+    // cd /opt/kafka       // cd /opt/kafka_2.13-2.8.1
+    // bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic rockthejvm
+
+    //    readFromKafka()
+
+    // bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic rockthejvm
+
     writeCarsToKafka()
+
+    // docker compose down
   }
 }
