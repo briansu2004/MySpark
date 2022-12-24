@@ -75,13 +75,12 @@ object IntegratingKafka {
 
 
     // bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic rockthejvm
-
 //        readFromKafka()
 
     // bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic rockthejvm
-
 //    writeToKafka()
     writeCarsToKafka()
+
 
     // docker compose down
   }
