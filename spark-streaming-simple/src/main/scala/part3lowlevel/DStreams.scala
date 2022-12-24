@@ -104,6 +104,7 @@ object DStreams {
   }
 
   def main(args: Array[String]): Unit = {
-    readFromSocket()
+//    readFromSocket()
+    readFromFile()
   }
 }
