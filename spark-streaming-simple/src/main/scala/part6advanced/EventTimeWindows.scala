@@ -34,7 +34,8 @@ object EventTimeWindows {
     val purchasesDF = readPurchasesFromSocket()
 
     val windowByDay = purchasesDF
-      .groupBy(window(col("time"), "1 day").as("time")) // tumbling window: sliding duration == window duration
+      // .groupBy(window(col("time"), "1 day").as("time")) // tumbling window: sliding duration == window duration
+      .groupBy(window(col("time"), "1 minute").as("time"))
       .agg(sum("quantity").as("totalQuantity"))
       .select(
         col("time").getField("start").as("start"),
@@ -121,6 +122,15 @@ object EventTimeWindows {
    */
 
   def main(args: Array[String]): Unit = {
+
+    // read from socket
+
+//    aggregatePurchasesByTumblingWindow()
+//    aggregatePurchasesBySlidingWindow()
+
+    // read from file
+
+//    bestSellingProductPerDay()
     bestSellingProductEvery24h()
   }
 }
