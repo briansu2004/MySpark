@@ -15,7 +15,7 @@ object ProcessingTimeWindows {
     val linesCharCountByWindowDF = spark.readStream
       .format("socket")
       .option("host", "localhost")
-      .option("port", 12346)
+      .option("port", 2023)
       .load()
       .select(col("value"), current_timestamp().as("processingTime")) // this is how you add processing time to a record
       .groupBy(window(col("processingTime"),  "10 seconds").as("window"))
