@@ -21,7 +21,7 @@ object DStreamsTransformations {
 
   import spark.implicits._ // for encoders to create Datasets
 
-  def readPeople() = ssc.socketTextStream("localhost", 9999).map { line =>
+  def readPeople() = ssc.socketTextStream("localhost", 2023).map { line =>
     val tokens = line.split(":")
     Person(
       tokens(0).toInt, // id
@@ -71,12 +71,12 @@ object DStreamsTransformations {
     val f = new File("src/main/resources/data/people")
     val nFiles = f.listFiles().length
     val path = s"src/main/resources/data/people/people$nFiles.json"
-
     ds.write.json(path)
   }
 
-
   def main(args: Array[String]): Unit = {
+    // ncat -l -p 2023 < .\src\main\resources\data\people-1m\people-1m.txt
+
 //    val stream = countNamesReduce()
 //    stream.print()
 
@@ -85,5 +85,4 @@ object DStreamsTransformations {
     ssc.start()
     ssc.awaitTermination()
   }
-
 }
