@@ -10,6 +10,7 @@ object FileStreamDemo extends Serializable {
   @transient lazy val logger: Logger = Logger.getLogger(getClass.getName)
 
   def main(args: Array[String]): Unit = {
+    // ???
 
     val spark = SparkSession.builder()
       .master("local[3]")

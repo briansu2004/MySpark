@@ -56,7 +56,7 @@ object KafkaStreamDemo extends Serializable {
       .option("startingOffsets", "earliest")
       .load()
 
-    //kafkaDF.printSchema()
+    kafkaDF.printSchema()
 
     val valueDF = kafkaDF.select(from_json(col("value").cast("string"), schema).alias("value"))
 
@@ -83,7 +83,5 @@ object KafkaStreamDemo extends Serializable {
 
     logger.info("Listening to Kafka")
     invoiceWriterQuery.awaitTermination()
-
   }
-
 }
