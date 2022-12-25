@@ -22,9 +22,11 @@ object HelloSparkSQL extends Serializable {
 
     val countDF = spark.sql("select Country, count(1) as count from survey_tbl where Age<40 group by Country")
 
-    logger.info(countDF.collect().mkString("->"))
-    //scala.io.StdIn.readLine()
-    spark.stop()
+    countDF.show()
 
+    logger.info(countDF.collect().mkString("->"))
+
+//    scala.io.StdIn.readLine()
+    spark.stop()
   }
 }
