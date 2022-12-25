@@ -21,12 +21,11 @@ object StreamingWC extends Serializable {
       .option("port", "9999")
       .load()
 
-    // linesDF.printSchema()
+    linesDF.printSchema()
 
     //val wordsDF = linesDF.select(explode(split(col("value"), " ")).alias("word"))
     val wordsDF = linesDF.select(expr("explode(split(value,' ')) as word"))
     val countsDF = wordsDF.groupBy("word").count()
-
 
     val wordCountQuery = countsDF.writeStream
       .format("console")
@@ -37,8 +36,6 @@ object StreamingWC extends Serializable {
 
     logger.info("Listening to localhost:9999")
     wordCountQuery.awaitTermination()
-
-
   }
 
 }
