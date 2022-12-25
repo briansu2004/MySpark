@@ -48,6 +48,13 @@ object KafkaStreamDemo extends Serializable {
       )))),
     ))
 
+    // https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html
+//    val kafkaDF: DataFrame = spark.readStream
+//      .format("kafka")
+//      .option("kafka.bootstrap.servers", "localhost:9092")
+//      .option("subscribe", "sutek")
+//      .load()
+
     val kafkaDF = spark
       .readStream
       .format("kafka")
