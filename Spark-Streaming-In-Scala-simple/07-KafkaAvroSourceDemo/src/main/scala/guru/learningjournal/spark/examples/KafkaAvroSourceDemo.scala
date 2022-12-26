@@ -1,11 +1,11 @@
 package guru.learningjournal.spark.examples
 
-import java.nio.file.{Files, Paths}
-
 import org.apache.log4j.Logger
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.avro.functions.from_avro
-import org.apache.spark.sql.functions.{col, expr, round, struct, sum, to_json}
+import org.apache.spark.sql.functions._
+
+import java.nio.file.{Files, Paths}
 
 object KafkaAvroSourceDemo extends Serializable {
   @transient lazy val logger: Logger = Logger.getLogger(getClass.getName)
@@ -14,7 +14,7 @@ object KafkaAvroSourceDemo extends Serializable {
 
     val spark = SparkSession.builder()
       .master("local[3]")
-      .appName("Kafka Avro Sink Demo")
+      .appName("Kafka Avro Source Demo")
       .config("spark.streaming.stopGracefullyOnShutdown", "true")
       .getOrCreate()
 

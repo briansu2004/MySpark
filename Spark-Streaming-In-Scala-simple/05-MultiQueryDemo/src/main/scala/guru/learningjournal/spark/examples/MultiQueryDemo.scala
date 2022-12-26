@@ -98,6 +98,5 @@ object MultiQueryDemo extends Serializable {
 
     logger.info("Waiting for Queries")
     spark.streams.awaitAnyTermination()
-
   }
 }

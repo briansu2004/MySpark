@@ -85,7 +85,5 @@ object KafkaAvroSinkDemo extends Serializable {
 
     logger.info("Start Writer Query")
     invoiceWriterQuery.awaitTermination()
-
   }
-
 }
