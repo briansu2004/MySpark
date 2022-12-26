@@ -16,7 +16,7 @@ object IntegratingKafka {
     val kafkaDF: DataFrame = spark.readStream
       .format("kafka")
       .option("kafka.bootstrap.servers", "localhost:9092")
-      .option("subscribe", "rockthejvm")
+      .option("subscribe", "sutek")
       .load()
 
     kafkaDF
@@ -38,7 +38,7 @@ object IntegratingKafka {
     carsKafkaDF.writeStream
       .format("kafka")
       .option("kafka.bootstrap.servers", "localhost:9092")
-      .option("topic", "rockthejvm")
+      .option("topic", "sutek")
       .option("checkpointLocation", "checkpoints") // without checkpoints the writing to Kafka will fail
       .start()
       .awaitTermination()
@@ -61,7 +61,7 @@ object IntegratingKafka {
     carsJsonKafkaDF.writeStream
       .format("kafka")
       .option("kafka.bootstrap.servers", "localhost:9092")
-      .option("topic", "rockthejvm")
+      .option("topic", "sutek")
       .option("checkpointLocation", "checkpoints")
       .start()
       .awaitTermination()
@@ -70,14 +70,14 @@ object IntegratingKafka {
   def main(args: Array[String]): Unit = {
     // docker compose up
 
-    // docker exec -it rockthejvm-sparkstreaming-kafka bash
+    // docker exec -it sutek-sparkstreaming-kafka bash
     // cd /opt/kafka       // cd /opt/kafka_2.13-2.8.1
-    // bin/kfaka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic rockthejvm
+    // bin/kfaka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic sutek
 
-    // bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic rockthejvm
+    // bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic sutek
 //        readFromKafka()
 
-    // bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic rockthejvm
+    // bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sutek
 //    writeToKafka()
     writeCarsToKafka()
 

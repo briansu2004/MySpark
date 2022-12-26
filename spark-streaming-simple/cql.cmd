@@ -1,1 +1,1 @@
-docker exec -it rockthejvm-sparkstreaming-cassandra cqlsh
+docker exec -it sutek-sparkstreaming-cassandra cqlsh

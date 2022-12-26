@@ -27,7 +27,7 @@ object IntegratingKafkaDStreams {
     "enable.auto.commit" -> false.asInstanceOf[Object]
   )
 
-  val kafkaTopic = "rockthejvm"
+  val kafkaTopic = "sutek"
 
   def readFromKafka() = {
     val topics = Array(kafkaTopic)
@@ -91,15 +91,15 @@ object IntegratingKafkaDStreams {
   def main(args: Array[String]): Unit = {
     // docker compose up
 
-    // docker exec -it rockthejvm-sparkstreaming-kafka bash
+    // docker exec -it sutek-sparkstreaming-kafka bash
     // cd /opt/kafka       // cd /opt/kafka_2.13-2.8.1
-    // bin/kfaka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic rockthejvm
+    // bin/kfaka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic sutek
 
-    // bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic rockthejvm
+    // bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic sutek
 //    readFromKafka()
 
     // ncat -l -p 2023
-    // bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic rockthejvm
+    // bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sutek
     writeToKafka()
 
     // docker compose down

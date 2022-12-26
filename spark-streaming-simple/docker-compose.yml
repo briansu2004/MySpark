@@ -3,7 +3,7 @@ version: '3'
 services:
   postgres:
     image: postgres:9.6
-    container_name: rockthejvm-sparkstreaming-postgres
+    container_name: sutek-sparkstreaming-postgres
     environment:
       - "TZ=Europe/Amsterdam"
       - "POSTGRES_USER=docker"
@@ -14,19 +14,19 @@ services:
       - "./sql:/docker-entrypoint-initdb.d"
   cassandra:
     image: cassandra:3
-    container_name: rockthejvm-sparkstreaming-cassandra
+    container_name: sutek-sparkstreaming-cassandra
     ports:
     - "7000:7000"
     - "9042:9042"
     environment:
     - "CASSANDRA_CLUSTER_NAME=OUR_DOCKERIZED_CASSANDRA_SINGLE_NODE_CLUSTER"
   zookeeper:
-    container_name: rockthejvm-sparkstreaming-zookeeper
+    container_name: sutek-sparkstreaming-zookeeper
     image: wurstmeister/zookeeper
     ports:
     - "2181:2181"
   kafka:
-    container_name: rockthejvm-sparkstreaming-kafka
+    container_name: sutek-sparkstreaming-kafka
     image: wurstmeister/kafka
     ports:
     - "9092:9092"

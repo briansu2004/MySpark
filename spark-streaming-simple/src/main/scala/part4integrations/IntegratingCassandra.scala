@@ -91,7 +91,7 @@ object IntegratingCassandra {
   def main(args: Array[String]): Unit = {
     // docker compose up
 
-    // docker exec -it rockthejvm-sparkstreaming-cassandra cqlsh
+    // docker exec -it sutek-sparkstreaming-cassandra cqlsh
 
 //    create keyspace public with replication = { 'class': 'SimpleStrategy', 'replication_factor': 1 };
 //    create table public.cars("Name" text primary key, "Horsepower" int);
