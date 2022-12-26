@@ -32,8 +32,21 @@ conda install ipykernel
 ```dos
 conda config --set channel_priority strict
 conda env create -f golden_scenario_env.yml
+conda info --envs
 conda activate golden_scenario_env
 conda install python=3.7
 ```
 
+```dos
+python -m ipykernel install --user --name golden_scenario_env --display-name "Golden Scenario Env"
+```
+
 2. VSCode
+
+### Steps C (With docker)
+
+```dos
+docker pull jupyter/datascience-notebook
+docker images
+docker run --rm -t -d --name=jupyter -p 8888:8888 <imageId>
+```
