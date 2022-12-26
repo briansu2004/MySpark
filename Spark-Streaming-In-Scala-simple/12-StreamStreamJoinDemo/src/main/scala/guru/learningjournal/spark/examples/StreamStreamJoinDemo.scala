@@ -10,7 +10,6 @@ object StreamStreamJoinDemo extends Serializable {
   @transient lazy val logger: Logger = Logger.getLogger(getClass.getName)
 
   def main(args: Array[String]): Unit = {
-
     val spark = SparkSession.builder()
       .master("local[3]")
       .appName("Stream Stream Join Demo")
@@ -43,7 +42,6 @@ object StreamStreamJoinDemo extends Serializable {
       .withColumn("ImpressionTime", to_timestamp(col("CreatedTime"), "yyyy-MM-dd HH:mm:ss"))
       .drop("CreatedTime")
 
-
     val kafkaClickDF = spark
       .readStream
       .format("kafka")
@@ -72,6 +70,5 @@ object StreamStreamJoinDemo extends Serializable {
 
     logger.info("Waiting for Query")
     outputQuery.awaitTermination()
-
   }
 }
