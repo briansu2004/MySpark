@@ -2,7 +2,7 @@
 
 ## PySpark + Python + Jypyter Notebook + VSCode
 
-Steps:
+### Steps A
 
 1. Anaconda
 
@@ -24,3 +24,16 @@ conda install ipykernel
 7. Create: New Jupyter Notebook
 8. Firewall
 9. Notebook
+
+### Steps B
+
+1. Anaconda
+
+```dos
+conda config --set channel_priority strict
+conda env create -f golden_scenario_env.yml
+conda activate golden_scenario_env
+conda install python=3.7
+```
+
+2. VSCode
