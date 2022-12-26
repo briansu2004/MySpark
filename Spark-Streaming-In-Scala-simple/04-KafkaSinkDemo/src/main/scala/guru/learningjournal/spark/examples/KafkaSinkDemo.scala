@@ -77,7 +77,6 @@ object KafkaSinkDemo extends Serializable {
       .start()
     */
 
-
     val notificationWriterQuery = kafkaTargetDF
       .writeStream
       .queryName("Notification Writer")
@@ -90,7 +89,5 @@ object KafkaSinkDemo extends Serializable {
 
     logger.info("Listening and writing to Kafka")
     notificationWriterQuery.awaitTermination()
-
   }
-
 }
