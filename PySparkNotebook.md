@@ -4,10 +4,23 @@
 
 Steps:
 
-1. VSCode
-2. Anaconda
-3. Trust
-4. Python: Select Interpreter
-5. Create: New Jupyter Notebook
-6. Firewall
-7. ...
+1. Anaconda
+
+2. Anaconda Prompt
+
+```dos
+conda install ipykernel
+```
+
+![1672086486743](image/PySparkNotebook/1672086486743.png)
+
+3. VSCode
+4. Install Python extension
+5. Python: Select Interpreter
+
+![1672086607385](image/PySparkNotebook/1672086607385.png)
+
+6. Trust
+7. Create: New Jupyter Notebook
+8. Firewall
+9. Notebook
