@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "InvoiceItem",
-  "namespace": "guru.learningjournal.spark.examples.types",
+  "namespace": "com.sutek.sparkstreamingscalasimple.types",
   "fields": [
     {"name": "InvoiceNumber","type": ["string", "null"]},
     {"name": "CreatedTime","type": ["long", "null"]},
