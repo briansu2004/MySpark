@@ -1,6 +1,25 @@
 # PySpark + Python + Jypyter Notebook
 
+## PySpark + Python + Jypyter Notebook + Conda
+
+### Steps A
+
+1. Anaconda
+
+2. Anaconda Prompt
+
+```dos
+conda install ipykernel
+conda install jupyter
+cd\<MyFolder>
+jupyter-notebook
+```
+
+![1672097489350](image/PySparkNotebook/1672097489350.png)
+
 ## PySpark + Python + Jypyter Notebook + VSCode
+
+Sometimes not working
 
 ### Steps A
 
@@ -49,4 +68,7 @@ python -m ipykernel install --user --name golden_scenario_env --display-name "Go
 docker pull jupyter/datascience-notebook
 docker images
 docker run --rm -t -d --name=jupyter -p 8888:8888 <imageId>
+docker run --rm -t -d --name=jupyter -p 8888:8888 --mount src="$(pwd)",target=/app,type=bind jupter_v2:latest
 ```
+
+docker run --rm -t -d --name=jupyter -p 8888:8888 --mount src=C:\Code\MySpark\PySpark-Notebook-simple,target=/app,type=bind jupter_v2:latest
