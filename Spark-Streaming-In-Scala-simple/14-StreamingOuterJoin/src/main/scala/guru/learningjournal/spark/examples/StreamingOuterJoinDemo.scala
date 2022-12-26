@@ -74,6 +74,5 @@ object StreamingOuterJoinDemo extends Serializable {
 
     logger.info("Waiting for Query")
     outputQuery.awaitTermination()
-
   }
 }
