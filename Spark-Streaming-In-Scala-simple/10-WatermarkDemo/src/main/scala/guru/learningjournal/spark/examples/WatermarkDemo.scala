@@ -13,7 +13,7 @@ object WatermarkDemo extends Serializable {
 
     val spark = SparkSession.builder()
       .master("local[3]")
-      .appName("Tumbling Window Demo")
+      .appName("Watermark Demo")
       .config("spark.streaming.stopGracefullyOnShutdown", "true")
       .config("spark.sql.shuffle.partitions", 2)
       .getOrCreate()
@@ -46,7 +46,6 @@ object WatermarkDemo extends Serializable {
       .agg(sum("Buy").alias("TotalBuy"),
         sum("Sell").alias("TotalSell"))
 
-
     val outputDF = windowAggDF.select("window.start", "window.end", "TotalBuy", "TotalSell")
 
     val windowQuery = outputDF.writeStream
@@ -58,6 +57,5 @@ object WatermarkDemo extends Serializable {
 
     logger.info("Waiting for Query")
     windowQuery.awaitTermination()
-
   }
 }

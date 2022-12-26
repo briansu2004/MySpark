@@ -10,7 +10,6 @@ object SlidingWindowDemo extends Serializable {
   @transient lazy val logger: Logger = Logger.getLogger(getClass.getName)
 
   def main(args: Array[String]): Unit = {
-
     val spark = SparkSession.builder()
       .master("local[3]")
       .appName("Sliding Window Demo")
@@ -37,7 +36,6 @@ object SlidingWindowDemo extends Serializable {
     val sensorDF = valueDF.select("SensorID", "value.*")
       .withColumn("CreatedTime", to_timestamp(col("CreatedTime"), "yyyy-MM-dd HH:mm:ss"))
 
-
     val aggDF = sensorDF
       .withWatermark("CreatedTime", "30 minute")
       .groupBy(col("SensorID"),
@@ -56,7 +54,5 @@ object SlidingWindowDemo extends Serializable {
 
     logger.info("Counting Invoices")
     windowQuery.awaitTermination()
-
   }
-
 }
