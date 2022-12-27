@@ -67,7 +67,12 @@ lrwxr-xr-x    1 x239757  admin       42 26 Dec 19:55 wheel3.10 -> ../Cellar/pyth
 
 ### PySpark + Python + Jypyter Notebook + VSCode: Windows
 
-...
+```dos
+python -m pip install --upgrade pip
+pip install ipykernel jupyter
+cd <MyFolder>
+jupyter-notebook
+```
 
 ## PySpark + Python + Jypyter Notebook + VSCode + Conda
 
@@ -88,9 +93,8 @@ Sometimes not working!
 - Anaconda Prompt
 
 ```dos
-conda install ipykernel
-conda install jupyter
-cd\<MyFolder>
+conda install ipykernel jupyter
+cd <MyFolder>
 jupyter-notebook
 ```
 
