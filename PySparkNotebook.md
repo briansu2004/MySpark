@@ -67,6 +67,29 @@ lrwxr-xr-x    1 x239757  admin       42 26 Dec 19:55 wheel3.10 -> ../Cellar/pyth
 
 ### PySpark + Python + Jypyter Notebook + VSCode: Windows
 
+#### New way
+
+```dos
+pip install jupyterlab
+python -m jupyterlab
+```
+
+![1672160305152](image/PySparkNotebook/1672160305152.png)
+
+Considering make an alias (e.g. `j`) for `python -m jupyterlab`
+
+Can do it with venv together
+
+```dos
+python -m venv venv
+venv\scripts\activate.bat
+pip install ipykernel jupyter jupyterlab
+python -m jupyterlab
+venv\scripts\deactivate.bat
+```
+
+#### Old way
+
 ```dos
 python -m pip install --upgrade pip
 pip install ipykernel jupyter
