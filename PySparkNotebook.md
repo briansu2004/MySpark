@@ -4,7 +4,7 @@ VSCode has built-in support on Jypyter Notebook.
 
 ## No Conda
 
-### MacOS
+### PySpark + Python + Jypyter Notebook + VSCode: MacOS
 
 - Python
 
@@ -36,17 +36,23 @@ me ~ %
 
 - VSCode "Create: New Jupyter Notebook"
 
-### Windows
+### PySpark + Python + Jypyter Notebook + VSCode: Windows
 
 ...
 
 ## PySpark + Python + Jypyter Notebook + VSCode + Conda
 
-Not needws anymore.
+### MacOS
+
+...
+
+### Windows
+
+May not be needed.
 
 Sometimes not working!
 
-### A
+#### A
 
 - Anaconda
 
@@ -61,7 +67,7 @@ jupyter-notebook
 
 ![1672097489350](image/PySparkNotebook/1672097489350.png)
 
-### B
+#### B
 
 - Anaconda
 
@@ -84,7 +90,7 @@ conda install ipykernel
 - Firewall
 - Notebook
 
-### C
+#### C
 
 1. Anaconda
 
