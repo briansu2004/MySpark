@@ -99,11 +99,11 @@ jupyter-notebook
 
 ## PySpark + Python + Jypyter Notebook + VSCode + Conda
 
-### MacOS
+### PySpark + Python + Jypyter Notebook + VSCode + Conda : MacOS
 
 ...
 
-### Windows
+### PySpark + Python + Jypyter Notebook + VSCode + Conda : Windows
 
 May not be needed.
 
@@ -174,3 +174,41 @@ docker run --rm -t -d --name=jupyter -p 8888:8888 --mount src="$(pwd)",target=/a
 ```
 
 `docker run --rm -t -d --name=jupyter -p 8888:8888 --mount src=C:\Code\MySpark\PySpark-Notebook-simple,target=/app,type=bind jupter_v2:latest`
+
+## PySpark installation
+
+### PySpark installation :  MacOS
+
+...
+
+### PySpark installation : Windows
+
+```dos
+pip install pyspark
+pyspark
+```
+
+```dos
+C:\Code\MySpark>pip install pyspark
+Requirement already satisfied: pyspark in c:\apps\python37\lib\site-packages (3.3.1)
+Requirement already satisfied: py4j==0.10.9.5 in c:\apps\python37\lib\site-packages (from pyspark) (0.10.9.5)
+
+C:\Code\MySpark>pyspark
+Python 3.7.5 (tags/v3.7.5:5c02a39a0b, Oct 15 2019, 00:11:34) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+22/12/27 20:03:21 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 3.3.1
+      /_/
+
+Using Python version 3.7.5 (tags/v3.7.5:5c02a39a0b, Oct 15 2019 00:11:34)
+Spark context Web UI available at http://L113220.mshome.net:4040
+Spark context available as 'sc' (master = local[*], app id = local-1672189403113).
+SparkSession available as 'spark'.
+>>>
+```
