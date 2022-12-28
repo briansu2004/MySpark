@@ -4,6 +4,16 @@ Spark is written in Scala.
 
 Apache Spark is a unified analytics engine for processing large volumes of data. It can run workloads 100 times faster and offers over 80 high-level operators that make it easy to build parallel apps. Spark can run on Hadoop, Apache Mesos, Kubernetes, standalone, or in the cloud, and can access data from multiple sources.
 
+## Typical project
+
+Credit Card Fraud Detection with Spark
+
+Keywords:
+
+Big Data, Fraud Detection, Streaming Analytics, Machine Learning, Scalable Software, Kafka, Spark, Cassandra
+
+![1672190315666](image/README/1672190315666.png)
+
 ## Spark Streaming
 
 ### Spark Streaming With Scala
@@ -506,3 +516,11 @@ Here are useful shortcuts in Windows:
 ## PySpark + Python + Jypyter Notebook
 
 [PySpark + Python + Jypyter Notebook](PySparkNotebook.md)
+
+## Jupyter Book
+
+`pip install jupyter-book`
+
+`jupyter-book build fraud-detection-handbook`
+
+The book will be available locally at fraud-detection-handbook/_build/html/index.html.

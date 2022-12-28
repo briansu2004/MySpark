@@ -1,0 +1,1435 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5. Real-world data &#8212; Reproducible Machine Learning for Credit Card Fraud detection - Practical handbook</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/jtag_0.js"></script>
+    <script src="../_static/jtag_1.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://fraud-detection-handbook.github.io/fraud-detection-handbook/Chapter_7_DeepLearning/RealWorldData.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Summary" href="Summary.html" />
+    <link rel="prev" title="4. Sequential models and representation learning" href="SequentialModeling.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Reproducible Machine Learning for Credit Card Fraud detection - Practical handbook</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../Foreword.html">
+                    Foreword
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  1. Book overview
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_1_BookContent/BookContent.html">
+   1. Book content and intended audience
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_1_BookContent/BookContributions.html">
+   2. Book contributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_1_BookContent/HowToUse.html">
+   3. How to use this book
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  2. Background
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2_Background/Introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2_Background/CreditCardFraud.html">
+   2. Credit card fraud scenarios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2_Background/FDS.html">
+   3. Credit card fraud detection system
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2_Background/MachineLearningForFraudDetection.html">
+   4. Machine learning for credit card fraud detection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2_Background/Summary.html">
+   5. Summary
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  3. Getting started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3_GettingStarted/Introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3_GettingStarted/SimulatedDataset.html">
+   2. Transaction data simulator
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3_GettingStarted/BaselineFeatureTransformation.html">
+   3. Baseline feature transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3_GettingStarted/BaselineModeling.html">
+   4. Baseline fraud detection system
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3_GettingStarted/Baseline_RealWorldData.html">
+   5. Real-world data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3_GettingStarted/Summary.html">
+   6. Summary
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  4. Performance metrics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4_PerformanceMetrics/Introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4_PerformanceMetrics/ThresholdBased.html">
+   2. Threshold-based metrics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4_PerformanceMetrics/ThresholdFree.html">
+   3. Threshold-free metrics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4_PerformanceMetrics/TopKBased.html">
+   4. Precision top-k metrics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4_PerformanceMetrics/Assessment_RealWorldData.html">
+   5. Real-world data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4_PerformanceMetrics/Summary.html">
+   6. Summary
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  5. Model validation and model selection
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_5_ModelValidationAndSelection/Introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_5_ModelValidationAndSelection/ValidationStrategies.html">
+   2. Validation strategies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_5_ModelValidationAndSelection/ModelSelection.html">
+   3. Model selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_5_ModelValidationAndSelection/ModelSelection_RealWorldData.html">
+   4. Real-world data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_5_ModelValidationAndSelection/Summary.html">
+   5. Summary
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  6. Imbalanced learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6_ImbalancedLearning/Introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6_ImbalancedLearning/CostSensitive.html">
+   2. Cost-sensitive learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6_ImbalancedLearning/Resampling.html">
+   3. Resampling strategies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6_ImbalancedLearning/Ensembling.html">
+   4. Ensemble methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6_ImbalancedLearning/Imbalanced_RealWorldData.html">
+   5. Real-world data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6_ImbalancedLearning/Summary.html">
+   6. Summary
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  7. Deep learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="FeedForwardNeuralNetworks.html">
+   2. Feed-forward neural network
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Autoencoders.html">
+   3. Autoencoders and anomaly detection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="SequentialModeling.html">
+   4. Sequential models and representation learning
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   5. Real-world data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Summary.html">
+   6. Summary
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_References/shared_functions.html">
+   1. Shared functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_References/bibliography.html">
+   2. Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/Fraud-Detection-Handbook/fraud-detection-handbook/main?urlpath=tree/Chapter_7_DeepLearning/RealWorldData.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/Fraud-Detection-Handbook/fraud-detection-handbook/blob/main/Chapter_7_DeepLearning/RealWorldData.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/Fraud-Detection-Handbook/fraud-detection-handbook"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/Fraud-Detection-Handbook/fraud-detection-handbook/issues/new?title=Issue%20on%20page%20%2FChapter_7_DeepLearning/RealWorldData.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/Fraud-Detection-Handbook/fraud-detection-handbook/edit/main/Chapter_7_DeepLearning/RealWorldData.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/Chapter_7_DeepLearning/RealWorldData.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#feed-forward-neural-network">
+   5.1. Feed-forward neural network
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sequential-models">
+   5.2. Sequential models
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convolutional-neural-network">
+     5.2.1. Convolutional Neural Network
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#long-short-term-memory">
+     5.2.2. Long Short Term Memory
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lstm-with-attention">
+     5.2.3. LSTM with Attention
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#global-comparison">
+   5.3. Global comparison
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Real-world data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#feed-forward-neural-network">
+   5.1. Feed-forward neural network
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sequential-models">
+   5.2. Sequential models
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convolutional-neural-network">
+     5.2.1. Convolutional Neural Network
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#long-short-term-memory">
+     5.2.2. Long Short Term Memory
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lstm-with-attention">
+     5.2.3. LSTM with Attention
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#global-comparison">
+   5.3. Global comparison
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="real-world-data">
+<h1><span class="section-number">5. </span>Real-world data<a class="headerlink" href="#real-world-data" title="Permalink to this headline">#</a></h1>
+<p>The section reports the performances that are obtained on real-world data using neural network architectures. The dataset is the same as in <a class="reference internal" href="../Chapter_3_GettingStarted/Baseline_RealWorldData.html#baseline-fds-realworlddata"><span class="std std-ref">Chapter 3, Section 5</span></a>. Results are reported following the prequential grid search methodology used in the previous sections with simulated data.</p>
+<p>We first report the performances for the feed-forward neural network, the convolutional neural network, the long short term memory, and the LSTM with attention. We also considered variations in the hyperparameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Feed-forward</span> <span class="pre">Neural</span> <span class="pre">Network</span></code>: 2 layers, 500 neurons, a dropout level of 0 or 0.2, Adam with a learning rate of 0.001 or 0.0001, 5, 10 or 20 epochs, and a batch size of 64, 128, or 256.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Convolutional</span> <span class="pre">Neural</span> <span class="pre">Network</span></code>: 2 convolutional layers with 200 filters of size 2, 1 hidden layer with 500 neurons, a dropout level of 0 or 0.2, Adam with a learning rate of 0.001 or 0.0001, 5, 10 or 20 epochs, and a batch size of 64, 128 or 256.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Long</span> <span class="pre">Short</span> <span class="pre">Term</span> <span class="pre">Memory</span></code>: 1 recurrent layer with 200 neurons for the hidden state, 1 hidden layer with 500 neurons, a dropout level of 0 or 0.2, Adam with a learning rate of 0.001 or 0.0001, 5, 10 or 20 epochs, and a batch size of 64, 128 or 256.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Long</span> <span class="pre">Short</span> <span class="pre">Term</span> <span class="pre">Memory</span> <span class="pre">with</span> <span class="pre">Attention</span></code>: 1 recurrent layer with 200 neurons for the hidden state, 1 hidden layer with 500 neurons, a dropout level of 0 or 0.2, Adam with a learning rate of 0.001 or 0.0001, 5, 10 or 20 epochs, and a batch size of 64, 128 or 256.</p></li>
+</ul>
+<p>We finally report global results and compare them to the other supervised baselines (decision tree, logistic regression, random forest, and XGBoost).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialization: Load shared functions</span>
+
+<span class="c1"># Load shared functions</span>
+<span class="o">!</span>curl -O https://raw.githubusercontent.com/Fraud-Detection-Handbook/fraud-detection-handbook/main/Chapter_References/shared_functions.py
+<span class="o">%</span><span class="k">run</span> shared_functions.py
+<span class="c1">#%run ../Chapter_References/shared_functions.ipynb</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="feed-forward-neural-network">
+<h2><span class="section-number">5.1. </span>Feed-forward neural network<a class="headerlink" href="#feed-forward-neural-network" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filehandler</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;performances_model_selection_nn_real_data.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> 
+<span class="p">(</span><span class="n">performances_df_dictionary</span><span class="p">,</span> <span class="n">execution_times</span><span class="p">)</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filehandler</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The results for the feed-forward network are reported below. Let us first have a look at global trends with the performance summary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">performances_df_nn</span> <span class="o">=</span> <span class="n">performances_df_dictionary</span><span class="p">[</span><span class="s1">&#39;Neural Network&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary_performances_nn</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_nn</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+<span class="n">summary_performances_nn</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AUC ROC</th>
+      <th>Average precision</th>
+      <th>Card Precision@100</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Best estimated parameters</th>
+      <td>0.0001/128/20/0.2/2</td>
+      <td>0.0001/128/20/0.2/2</td>
+      <td>0.0001/256/10/0/2</td>
+    </tr>
+    <tr>
+      <th>Validation performance</th>
+      <td>0.874+/-0.02</td>
+      <td>0.079+/-0.03</td>
+      <td>0.218+/-0.04</td>
+    </tr>
+    <tr>
+      <th>Test performance</th>
+      <td>0.894+/-0.01</td>
+      <td>0.084+/-0.02</td>
+      <td>0.236+/-0.04</td>
+    </tr>
+    <tr>
+      <th>Optimal parameter(s)</th>
+      <td>0.001/256/20/0.2/2</td>
+      <td>0.0001/64/20/0.2/2</td>
+      <td>0.0001/256/10/0/2</td>
+    </tr>
+    <tr>
+      <th>Optimal test performance</th>
+      <td>0.898+/-0.01</td>
+      <td>0.085+/-0.01</td>
+      <td>0.236+/-0.04</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As well as for the synthetic data, the optimal set of hyperparameters strongly depends on the metric. The smallest learning rate <code class="docutils literal notranslate"><span class="pre">0.0001</span></code>, and the largest number of epochs <code class="docutils literal notranslate"><span class="pre">20</span></code> are slightly favored. Let us consider these values and visualize the impact of the batch size and dropout level.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">performances_df_nn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">])</span>
+<span class="n">performances_df_nn</span><span class="p">[</span><span class="s1">&#39;Parameters summary&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span>
+                                   <span class="nb">str</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;clf__batch_size&#39;</span><span class="p">])</span>    
+                                   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">))]</span>
+<span class="n">performances_df_nn_subset</span> <span class="o">=</span> <span class="n">performances_df_nn</span><span class="p">[</span><span class="n">performances_df_nn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__lr&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mf">0.0001</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__hidden_size&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">500</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__num_layers&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__p&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">0.2</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__max_epochs&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">summary_performances_nn_subset</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_nn_subset</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+<span class="n">indexes_summary</span> <span class="o">=</span> <span class="n">summary_performances_nn_subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+<span class="n">indexes_summary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Best estimated parameters&#39;</span>
+<span class="n">summary_performances_nn_subset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indexes_summary</span><span class="p">)),</span><span class="n">indexes_summary</span><span class="p">)))</span>
+<span class="n">get_performances_plots</span><span class="p">(</span><span class="n">performances_df_nn_subset</span><span class="p">,</span> 
+                       <span class="n">performance_metrics_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC ROC&#39;</span><span class="p">,</span> <span class="s1">&#39;Average precision&#39;</span><span class="p">,</span> <span class="s1">&#39;Card Precision@100&#39;</span><span class="p">],</span> 
+                       <span class="n">expe_type_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span><span class="s1">&#39;Validation&#39;</span><span class="p">],</span> <span class="n">expe_type_color_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#008000&#39;</span><span class="p">,</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">],</span>
+                       <span class="n">parameter_name</span><span class="o">=</span><span class="s2">&quot;batch size&quot;</span><span class="p">,</span>
+                       <span class="n">summary_performances</span><span class="o">=</span><span class="n">summary_performances_nn_subset</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/RealWorldData_8_0.png" src="../_images/RealWorldData_8_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">performances_df_nn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">])</span>
+<span class="n">performances_df_nn</span><span class="p">[</span><span class="s1">&#39;Parameters summary&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span>
+                                   <span class="nb">str</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;clf__module__p&#39;</span><span class="p">])</span>    
+                                   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">))]</span>
+<span class="n">performances_df_nn_subset</span> <span class="o">=</span> <span class="n">performances_df_nn</span><span class="p">[</span><span class="n">performances_df_nn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__lr&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mf">0.0001</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__hidden_size&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">500</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__num_layers&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__max_epochs&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">20</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__batch_size&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">128</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">summary_performances_nn_subset</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_nn_subset</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+<span class="n">indexes_summary</span> <span class="o">=</span> <span class="n">summary_performances_nn_subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+<span class="n">indexes_summary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Best estimated parameters&#39;</span>
+<span class="n">summary_performances_nn_subset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indexes_summary</span><span class="p">)),</span><span class="n">indexes_summary</span><span class="p">)))</span>
+<span class="n">get_performances_plots</span><span class="p">(</span><span class="n">performances_df_nn_subset</span><span class="p">,</span> 
+                       <span class="n">performance_metrics_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC ROC&#39;</span><span class="p">,</span> <span class="s1">&#39;Average precision&#39;</span><span class="p">,</span> <span class="s1">&#39;Card Precision@100&#39;</span><span class="p">],</span> 
+                       <span class="n">expe_type_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span><span class="s1">&#39;Validation&#39;</span><span class="p">],</span> <span class="n">expe_type_color_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#008000&#39;</span><span class="p">,</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">],</span>
+                       <span class="n">parameter_name</span><span class="o">=</span><span class="s2">&quot;Dropout&quot;</span><span class="p">,</span>
+                       <span class="n">summary_performances</span><span class="o">=</span><span class="n">summary_performances_nn_subset</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/RealWorldData_9_0.png" src="../_images/RealWorldData_9_0.png" />
+</div>
+</div>
+<p>Similar to results on synthetic data, these hyperparameters related to optimization all have sweet spots that depend on each other. This confirms the importance of tuning for this kind of model.</p>
+<p>Overall, our simple feed-forward neural network reaches a competitive performance. It is comparable to the Random Forest baseline on the real-world data (global comparison at the end), which is very promising for applications to incremental fraud detection systems.</p>
+</section>
+<section id="sequential-models">
+<h2><span class="section-number">5.2. </span>Sequential models<a class="headerlink" href="#sequential-models" title="Permalink to this headline">#</a></h2>
+<p>Let us now analyze the performance of sequential models on real-world data with respect to some of their optimization parameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filehandler</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;performances_model_selection_seq_model_real_data.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> 
+<span class="p">(</span><span class="n">performances_df_dictionary_seq_model</span><span class="p">,</span> <span class="n">execution_times</span><span class="p">)</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filehandler</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">performances_df_cnn</span><span class="o">=</span><span class="n">performances_df_dictionary_seq_model</span><span class="p">[</span><span class="s1">&#39;CNN&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_cnn</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_cnn</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+
+<span class="n">performances_df_lstm</span><span class="o">=</span><span class="n">performances_df_dictionary_seq_model</span><span class="p">[</span><span class="s1">&#39;LSTM&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_lstm</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_lstm</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+
+<span class="n">performances_df_lstm_attn</span><span class="o">=</span><span class="n">performances_df_dictionary_seq_model</span><span class="p">[</span><span class="s1">&#39;LSTM_Attention&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_lstm_attn</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_lstm_attn</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="convolutional-neural-network">
+<h3><span class="section-number">5.2.1. </span>Convolutional Neural Network<a class="headerlink" href="#convolutional-neural-network" title="Permalink to this headline">#</a></h3>
+<p>We start with the 1D convolutional neural network. The performance summary and the impact of batch size, number of epochs, and dropout are analyzed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary_performances_cnn</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AUC ROC</th>
+      <th>Average precision</th>
+      <th>Card Precision@100</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Best estimated parameters</th>
+      <td>5/2/256/200/0</td>
+      <td>10/2/256/200/0</td>
+      <td>10/2/128/200/0</td>
+    </tr>
+    <tr>
+      <th>Validation performance</th>
+      <td>0.864+/-0.02</td>
+      <td>0.098+/-0.03</td>
+      <td>0.227+/-0.03</td>
+    </tr>
+    <tr>
+      <th>Test performance</th>
+      <td>0.882+/-0.01</td>
+      <td>0.093+/-0.02</td>
+      <td>0.221+/-0.03</td>
+    </tr>
+    <tr>
+      <th>Optimal parameter(s)</th>
+      <td>5/2/128/200/0</td>
+      <td>5/2/256/200/0</td>
+      <td>5/2/64/200/0.2</td>
+    </tr>
+    <tr>
+      <th>Optimal test performance</th>
+      <td>0.884+/-0.01</td>
+      <td>0.103+/-0.02</td>
+      <td>0.245+/-0.02</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">performances_df_cnn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">])</span>
+<span class="n">performances_df_cnn</span><span class="p">[</span><span class="s1">&#39;Parameters summary&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;clf__max_epochs&#39;</span><span class="p">])</span><span class="o">+</span>
+                                   <span class="s1">&#39;/&#39;</span><span class="o">+</span>
+                                   <span class="nb">str</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;clf__batch_size&#39;</span><span class="p">])</span><span class="o">+</span>
+                                   <span class="s1">&#39;/&#39;</span><span class="o">+</span>    
+                                   <span class="nb">str</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;clf__module__p&#39;</span><span class="p">])</span>
+                                   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">))]</span>
+
+<span class="n">performances_df_cnn_subset</span> <span class="o">=</span> <span class="n">performances_df_cnn</span><span class="p">[</span><span class="n">performances_df_cnn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__lr&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mf">0.0001</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__num_filters&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">200</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__max_epochs&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">10</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__num_conv&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__p&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">summary_performances_cnn_subset</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_cnn_subset</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+<span class="n">indexes_summary</span> <span class="o">=</span> <span class="n">summary_performances_cnn_subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+<span class="n">indexes_summary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Best estimated parameters&#39;</span>
+<span class="n">summary_performances_cnn_subset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indexes_summary</span><span class="p">)),</span><span class="n">indexes_summary</span><span class="p">)))</span>
+<span class="n">get_performances_plots</span><span class="p">(</span><span class="n">performances_df_cnn_subset</span><span class="p">,</span> 
+                       <span class="n">performance_metrics_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC ROC&#39;</span><span class="p">,</span> <span class="s1">&#39;Average precision&#39;</span><span class="p">,</span> <span class="s1">&#39;Card Precision@100&#39;</span><span class="p">],</span> 
+                       <span class="n">expe_type_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span><span class="s1">&#39;Validation&#39;</span><span class="p">],</span> <span class="n">expe_type_color_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#008000&#39;</span><span class="p">,</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">],</span>
+                       <span class="n">parameter_name</span><span class="o">=</span><span class="s2">&quot;batch size&quot;</span><span class="p">,</span>
+                       <span class="n">summary_performances</span><span class="o">=</span><span class="n">summary_performances_cnn_subset</span><span class="p">)</span>
+
+<span class="n">performances_df_cnn_subset</span> <span class="o">=</span> <span class="n">performances_df_cnn</span><span class="p">[</span><span class="n">performances_df_cnn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__lr&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mf">0.0001</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__num_filters&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">200</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__batch_size&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">128</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__num_conv&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__p&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">summary_performances_cnn_subset</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_cnn_subset</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+<span class="n">indexes_summary</span> <span class="o">=</span> <span class="n">summary_performances_cnn_subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+<span class="n">indexes_summary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Best estimated parameters&#39;</span>
+<span class="n">summary_performances_cnn_subset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indexes_summary</span><span class="p">)),</span><span class="n">indexes_summary</span><span class="p">)))</span>
+<span class="n">get_performances_plots</span><span class="p">(</span><span class="n">performances_df_cnn_subset</span><span class="p">,</span> 
+                       <span class="n">performance_metrics_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC ROC&#39;</span><span class="p">,</span> <span class="s1">&#39;Average precision&#39;</span><span class="p">,</span> <span class="s1">&#39;Card Precision@100&#39;</span><span class="p">],</span> 
+                       <span class="n">expe_type_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span><span class="s1">&#39;Validation&#39;</span><span class="p">],</span> <span class="n">expe_type_color_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#008000&#39;</span><span class="p">,</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">],</span>
+                       <span class="n">parameter_name</span><span class="o">=</span><span class="s2">&quot;epochs&quot;</span><span class="p">,</span>
+                       <span class="n">summary_performances</span><span class="o">=</span><span class="n">summary_performances_cnn_subset</span><span class="p">)</span>
+
+<span class="n">performances_df_cnn_subset</span> <span class="o">=</span> <span class="n">performances_df_cnn</span><span class="p">[</span><span class="n">performances_df_cnn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__lr&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mf">0.0001</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__num_filters&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">200</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__batch_size&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">128</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__num_conv&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__max_epochs&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">summary_performances_cnn_subset</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_cnn_subset</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+<span class="n">indexes_summary</span> <span class="o">=</span> <span class="n">summary_performances_cnn_subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+<span class="n">indexes_summary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Best estimated parameters&#39;</span>
+<span class="n">summary_performances_cnn_subset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indexes_summary</span><span class="p">)),</span><span class="n">indexes_summary</span><span class="p">)))</span>
+<span class="n">get_performances_plots</span><span class="p">(</span><span class="n">performances_df_cnn_subset</span><span class="p">,</span> 
+                       <span class="n">performance_metrics_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC ROC&#39;</span><span class="p">,</span> <span class="s1">&#39;Average precision&#39;</span><span class="p">,</span> <span class="s1">&#39;Card Precision@100&#39;</span><span class="p">],</span> 
+                       <span class="n">expe_type_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span><span class="s1">&#39;Validation&#39;</span><span class="p">],</span> <span class="n">expe_type_color_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#008000&#39;</span><span class="p">,</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">],</span>
+                       <span class="n">parameter_name</span><span class="o">=</span><span class="s2">&quot;dropout&quot;</span><span class="p">,</span>
+                       <span class="n">summary_performances</span><span class="o">=</span><span class="n">summary_performances_cnn_subset</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/RealWorldData_16_0.png" src="../_images/RealWorldData_16_0.png" />
+<img alt="../_images/RealWorldData_16_1.png" src="../_images/RealWorldData_16_1.png" />
+<img alt="../_images/RealWorldData_16_2.png" src="../_images/RealWorldData_16_2.png" />
+</div>
+</div>
+<p>Similar to the regular neural network, the performance highly depends on the optimization parameters. A little level of dropout appears to be beneficial, in particular on the test dataset, where the distribution is further from the training distribution.</p>
+<p>Overall, except for the AUC ROC, the 1D convolutional neural network is able to outperform the feed-forward neural network and obtain a very competitive Average precision.</p>
+</section>
+<section id="long-short-term-memory">
+<h3><span class="section-number">5.2.2. </span>Long Short Term Memory<a class="headerlink" href="#long-short-term-memory" title="Permalink to this headline">#</a></h3>
+<p>Let us carry on with the LSTM.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary_performances_lstm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AUC ROC</th>
+      <th>Average precision</th>
+      <th>Card Precision@100</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Best estimated parameters</th>
+      <td>5/128/200/0.2</td>
+      <td>5/256/200/0.2</td>
+      <td>5/64/200/0</td>
+    </tr>
+    <tr>
+      <th>Validation performance</th>
+      <td>0.873+/-0.02</td>
+      <td>0.109+/-0.04</td>
+      <td>0.238+/-0.02</td>
+    </tr>
+    <tr>
+      <th>Test performance</th>
+      <td>0.892+/-0.0</td>
+      <td>0.104+/-0.03</td>
+      <td>0.22+/-0.03</td>
+    </tr>
+    <tr>
+      <th>Optimal parameter(s)</th>
+      <td>5/256/200/0.2</td>
+      <td>5/128/200/0</td>
+      <td>5/256/200/0</td>
+    </tr>
+    <tr>
+      <th>Optimal test performance</th>
+      <td>0.893+/-0.01</td>
+      <td>0.11+/-0.02</td>
+      <td>0.24+/-0.03</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The long short term memory globally outperforms the convolutional neural network on the test datasets and obtains the best average precision overall.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">performances_df_lstm</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">])</span>
+<span class="n">performances_df_lstm</span><span class="p">[</span><span class="s1">&#39;Parameters summary&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;clf__max_epochs&#39;</span><span class="p">])</span>
+                                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">))]</span>
+
+<span class="n">performances_df_lstm_subset</span> <span class="o">=</span> <span class="n">performances_df_lstm</span><span class="p">[</span><span class="n">performances_df_lstm</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__lr&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mf">0.0001</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__batch_size&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">256</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__hidden_size_lstm&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">200</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__p&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">summary_performances_lstm_subset</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_lstm_subset</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+<span class="n">indexes_summary</span> <span class="o">=</span> <span class="n">summary_performances_lstm_subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+<span class="n">indexes_summary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Best estimated parameters&#39;</span>
+<span class="n">summary_performances_lstm_subset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indexes_summary</span><span class="p">)),</span><span class="n">indexes_summary</span><span class="p">)))</span>
+<span class="n">get_performances_plots</span><span class="p">(</span><span class="n">performances_df_lstm_subset</span><span class="p">,</span> 
+                       <span class="n">performance_metrics_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC ROC&#39;</span><span class="p">,</span> <span class="s1">&#39;Average precision&#39;</span><span class="p">,</span> <span class="s1">&#39;Card Precision@100&#39;</span><span class="p">],</span> 
+                       <span class="n">expe_type_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span><span class="s1">&#39;Validation&#39;</span><span class="p">],</span> <span class="n">expe_type_color_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#008000&#39;</span><span class="p">,</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">],</span>
+                       <span class="n">parameter_name</span><span class="o">=</span><span class="s2">&quot;epochs&quot;</span><span class="p">,</span>
+                       <span class="n">summary_performances</span><span class="o">=</span><span class="n">summary_performances_lstm_subset</span><span class="p">)</span>
+
+<span class="n">performances_df_lstm_subset</span> <span class="o">=</span> <span class="n">performances_df_lstm</span><span class="p">[</span><span class="n">performances_df_lstm</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__lr&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mf">0.001</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__batch_size&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">64</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__hidden_size_lstm&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">200</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__p&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">summary_performances_lstm_subset</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_lstm_subset</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+<span class="n">indexes_summary</span> <span class="o">=</span> <span class="n">summary_performances_lstm_subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+<span class="n">indexes_summary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Best estimated parameters&#39;</span>
+<span class="n">summary_performances_lstm_subset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indexes_summary</span><span class="p">)),</span><span class="n">indexes_summary</span><span class="p">)))</span>
+<span class="n">get_performances_plots</span><span class="p">(</span><span class="n">performances_df_lstm_subset</span><span class="p">,</span> 
+                       <span class="n">performance_metrics_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC ROC&#39;</span><span class="p">,</span> <span class="s1">&#39;Average precision&#39;</span><span class="p">,</span> <span class="s1">&#39;Card Precision@100&#39;</span><span class="p">],</span> 
+                       <span class="n">expe_type_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span><span class="s1">&#39;Validation&#39;</span><span class="p">],</span> <span class="n">expe_type_color_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#008000&#39;</span><span class="p">,</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">],</span>
+                       <span class="n">parameter_name</span><span class="o">=</span><span class="s2">&quot;epochs&quot;</span><span class="p">,</span>
+                       <span class="n">summary_performances</span><span class="o">=</span><span class="n">summary_performances_lstm_subset</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/RealWorldData_21_0.png" src="../_images/RealWorldData_21_0.png" />
+<img alt="../_images/RealWorldData_21_1.png" src="../_images/RealWorldData_21_1.png" />
+</div>
+</div>
+<p>The charts above show the evolution of the three metrics with the number of epochs, for the two extreme sets of “convergence”-related hyperparameters. On the top charts, the learning rate is <code class="docutils literal notranslate"><span class="pre">0.0001</span></code>, and the batch size is <code class="docutils literal notranslate"><span class="pre">256</span></code>. On the bottom charts, the learning rate is <code class="docutils literal notranslate"><span class="pre">0.001</span></code>, and the batch size is <code class="docutils literal notranslate"><span class="pre">64</span></code>. The best performance is obtained for the lowest learning rate, the largest batch size, and the lowest number of epochs which suggests that reducing the convergence speed or the number of epochs could potentially push the performance further. In spite of this, the optimal performance on the test sets is already very competitive with the baseline (see the results at the end of this section).</p>
+</section>
+<section id="lstm-with-attention">
+<h3><span class="section-number">5.2.3. </span>LSTM with Attention<a class="headerlink" href="#lstm-with-attention" title="Permalink to this headline">#</a></h3>
+<p>For the LSTM with Attention, we finally perform the exact same analysis as for the regular LSTM. The results, shown below, are slightly better and could also be improved by performing fewer optimization steps or by slowing down the convergence.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary_performances_lstm_attn</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AUC ROC</th>
+      <th>Average precision</th>
+      <th>Card Precision@100</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Best estimated parameters</th>
+      <td>5/128/200/0.2</td>
+      <td>5/128/200/0.2</td>
+      <td>10/128/200/0</td>
+    </tr>
+    <tr>
+      <th>Validation performance</th>
+      <td>0.89+/-0.01</td>
+      <td>0.105+/-0.03</td>
+      <td>0.243+/-0.03</td>
+    </tr>
+    <tr>
+      <th>Test performance</th>
+      <td>0.898+/-0.01</td>
+      <td>0.105+/-0.02</td>
+      <td>0.232+/-0.03</td>
+    </tr>
+    <tr>
+      <th>Optimal parameter(s)</th>
+      <td>5/256/200/0</td>
+      <td>5/256/200/0.2</td>
+      <td>5/128/200/0</td>
+    </tr>
+    <tr>
+      <th>Optimal test performance</th>
+      <td>0.899+/-0.01</td>
+      <td>0.113+/-0.03</td>
+      <td>0.247+/-0.02</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">performances_df_lstm_attn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">])</span>
+<span class="n">performances_df_lstm_attn</span><span class="p">[</span><span class="s1">&#39;Parameters summary&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;clf__max_epochs&#39;</span><span class="p">])</span><span class="o">+</span>
+                                   <span class="s1">&#39;/&#39;</span><span class="o">+</span>
+                                   <span class="nb">str</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;clf__module__hidden_size_lstm&#39;</span><span class="p">])</span>
+                                   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters_dict</span><span class="p">))]</span>
+
+<span class="n">performances_df_lstm_attn_subset</span> <span class="o">=</span> <span class="n">performances_df_lstm_attn</span><span class="p">[</span><span class="n">performances_df_lstm_attn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__lr&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mf">0.0001</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__batch_size&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">256</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__hidden_size_lstm&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">200</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__p&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">summary_performances_lstm_attn_subset</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_lstm_attn_subset</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+<span class="n">indexes_summary</span> <span class="o">=</span> <span class="n">summary_performances_lstm_attn_subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+<span class="n">indexes_summary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Best estimated parameters&#39;</span>
+<span class="n">summary_performances_lstm_attn_subset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indexes_summary</span><span class="p">)),</span><span class="n">indexes_summary</span><span class="p">)))</span>
+<span class="n">get_performances_plots</span><span class="p">(</span><span class="n">performances_df_lstm_attn_subset</span><span class="p">,</span> 
+                       <span class="n">performance_metrics_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC ROC&#39;</span><span class="p">,</span> <span class="s1">&#39;Average precision&#39;</span><span class="p">,</span> <span class="s1">&#39;Card Precision@100&#39;</span><span class="p">],</span> 
+                       <span class="n">expe_type_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span><span class="s1">&#39;Validation&#39;</span><span class="p">],</span> <span class="n">expe_type_color_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#008000&#39;</span><span class="p">,</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">],</span>
+                       <span class="n">parameter_name</span><span class="o">=</span><span class="s2">&quot;hidden states size&quot;</span><span class="p">,</span>
+                       <span class="n">summary_performances</span><span class="o">=</span><span class="n">summary_performances_lstm_attn_subset</span><span class="p">)</span>
+
+<span class="n">performances_df_lstm_attn_subset</span> <span class="o">=</span> <span class="n">performances_df_lstm_attn</span><span class="p">[</span><span class="n">performances_df_lstm_attn</span><span class="p">[</span><span class="s1">&#39;Parameters&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__lr&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mf">0.001</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__batch_size&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">64</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__hidden_size_lstm&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">200</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;clf__module__p&#39;</span><span class="p">]</span><span class="o">==</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="n">summary_performances_lstm_attn_subset</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_lstm_attn_subset</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+<span class="n">indexes_summary</span> <span class="o">=</span> <span class="n">summary_performances_lstm_attn_subset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+<span class="n">indexes_summary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Best estimated parameters&#39;</span>
+<span class="n">summary_performances_lstm_attn_subset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indexes_summary</span><span class="p">)),</span><span class="n">indexes_summary</span><span class="p">)))</span>
+<span class="n">get_performances_plots</span><span class="p">(</span><span class="n">performances_df_lstm_attn_subset</span><span class="p">,</span> 
+                       <span class="n">performance_metrics_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AUC ROC&#39;</span><span class="p">,</span> <span class="s1">&#39;Average precision&#39;</span><span class="p">,</span> <span class="s1">&#39;Card Precision@100&#39;</span><span class="p">],</span> 
+                       <span class="n">expe_type_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span><span class="s1">&#39;Validation&#39;</span><span class="p">],</span> <span class="n">expe_type_color_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#008000&#39;</span><span class="p">,</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">],</span>
+                       <span class="n">parameter_name</span><span class="o">=</span><span class="s2">&quot;epochs&quot;</span><span class="p">,</span>
+                       <span class="n">summary_performances</span><span class="o">=</span><span class="n">summary_performances_lstm_attn_subset</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/RealWorldData_25_0.png" src="../_images/RealWorldData_25_0.png" />
+<img alt="../_images/RealWorldData_25_1.png" src="../_images/RealWorldData_25_1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="global-comparison">
+<h2><span class="section-number">5.3. </span>Global comparison<a class="headerlink" href="#global-comparison" title="Permalink to this headline">#</a></h2>
+<p>To contrast the results obtained on the simulated dataset in previous sections, let us also make here a complete comparison of the approaches (baselines and deep learning models) on the real-world data. In particular, let us complement the results above with the ones obtained with baseline models (the Linear Regression, the Decision Tree, the Random Forest, and XGBoost) and display everything on a global table.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load performance results for decision tree, logistic regression, random forest and XGBoost</span>
+<span class="n">filehandler</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../Chapter_5_ModelValidationAndSelection/images/performances_model_selection_real_world_data.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> 
+<span class="p">(</span><span class="n">performances_df_dictionary</span><span class="p">,</span> <span class="n">execution_times</span><span class="p">)</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filehandler</span><span class="p">)</span>
+
+<span class="c1"># Load performance results for feed-forward neural network</span>
+<span class="n">filehandler</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;performances_model_selection_nn_real_data.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> 
+<span class="p">(</span><span class="n">performances_df_dictionary_nn</span><span class="p">,</span> <span class="n">execution_times_nn</span><span class="p">)</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filehandler</span><span class="p">)</span>
+
+<span class="c1"># Load performance results for CNN, LSTM and LSTM with Attention</span>
+<span class="n">filehandler</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;performances_model_selection_seq_model_real_data.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> 
+<span class="p">(</span><span class="n">performances_df_dictionary_seq_model</span><span class="p">,</span> <span class="n">execution_times_seq_model</span><span class="p">)</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filehandler</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">performances_df_dt</span><span class="o">=</span><span class="n">performances_df_dictionary</span><span class="p">[</span><span class="s1">&#39;Decision Tree&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_dt</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_dt</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+
+<span class="n">performances_df_lr</span><span class="o">=</span><span class="n">performances_df_dictionary</span><span class="p">[</span><span class="s1">&#39;Logistic Regression&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_lr</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_lr</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+
+<span class="n">performances_df_rf</span><span class="o">=</span><span class="n">performances_df_dictionary</span><span class="p">[</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_rf</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_rf</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+
+<span class="n">performances_df_xgboost</span><span class="o">=</span><span class="n">performances_df_dictionary</span><span class="p">[</span><span class="s1">&#39;XGBoost&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_xgboost</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_xgboost</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+
+<span class="n">performances_df_nn</span><span class="o">=</span><span class="n">performances_df_dictionary_nn</span><span class="p">[</span><span class="s1">&#39;Neural Network&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_nn</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_nn</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+
+<span class="n">performances_df_cnn</span><span class="o">=</span><span class="n">performances_df_dictionary_seq_model</span><span class="p">[</span><span class="s1">&#39;CNN&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_cnn</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_cnn</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+
+<span class="n">performances_df_lstm</span><span class="o">=</span><span class="n">performances_df_dictionary_seq_model</span><span class="p">[</span><span class="s1">&#39;LSTM&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_lstm</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_lstm</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+
+<span class="n">performances_df_lstm_attention</span><span class="o">=</span><span class="n">performances_df_dictionary_seq_model</span><span class="p">[</span><span class="s1">&#39;LSTM_Attention&#39;</span><span class="p">]</span>
+<span class="n">summary_performances_lstm_attention</span><span class="o">=</span><span class="n">get_summary_performances</span><span class="p">(</span><span class="n">performances_df_lstm_attention</span><span class="p">,</span> <span class="n">parameter_column_name</span><span class="o">=</span><span class="s2">&quot;Parameters summary&quot;</span><span class="p">)</span>
+
+<span class="n">summary_test_performances</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">summary_performances_dt</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,:],</span>
+                                       <span class="n">summary_performances_lr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,:],</span>
+                                       <span class="n">summary_performances_rf</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,:],</span>
+                                       <span class="n">summary_performances_xgboost</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,:],</span>
+                                       <span class="n">summary_performances_nn</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,:],</span>
+                                       <span class="n">summary_performances_cnn</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,:],</span>
+                                       <span class="n">summary_performances_lstm</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,:],</span>
+                                       <span class="n">summary_performances_lstm_attention</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,:],</span>
+                                      <span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">summary_test_performances</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Decision Tree&#39;</span><span class="p">,</span> <span class="s1">&#39;Logistic Regression&#39;</span><span class="p">,</span> <span class="s1">&#39;Random Forest&#39;</span><span class="p">,</span> <span class="s1">&#39;XGBoost&#39;</span><span class="p">,</span> 
+                                   <span class="s1">&#39;Neural Network&#39;</span><span class="p">,</span> <span class="s1">&#39;CNN&#39;</span><span class="p">,</span> <span class="s1">&#39;LSTM&#39;</span><span class="p">,</span> <span class="s1">&#39;LSTM with Attention&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary_test_performances</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Decision Tree</th>
+      <th>Logistic Regression</th>
+      <th>Random Forest</th>
+      <th>XGBoost</th>
+      <th>Neural Network</th>
+      <th>CNN</th>
+      <th>LSTM</th>
+      <th>LSTM with Attention</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AUC ROC</th>
+      <td>0.869+/-0.03</td>
+      <td>0.816+/-0.02</td>
+      <td>0.912+/-0.02</td>
+      <td>0.928+/-0.01</td>
+      <td>0.894+/-0.01</td>
+      <td>0.882+/-0.01</td>
+      <td>0.892+/-0.0</td>
+      <td>0.898+/-0.01</td>
+    </tr>
+    <tr>
+      <th>Average precision</th>
+      <td>0.068+/-0.01</td>
+      <td>0.054+/-0.01</td>
+      <td>0.08+/-0.03</td>
+      <td>0.095+/-0.03</td>
+      <td>0.084+/-0.02</td>
+      <td>0.093+/-0.02</td>
+      <td>0.104+/-0.03</td>
+      <td>0.105+/-0.02</td>
+    </tr>
+    <tr>
+      <th>Card Precision@100</th>
+      <td>0.232+/-0.04</td>
+      <td>0.211+/-0.03</td>
+      <td>0.227+/-0.05</td>
+      <td>0.235+/-0.07</td>
+      <td>0.236+/-0.04</td>
+      <td>0.221+/-0.03</td>
+      <td>0.22+/-0.03</td>
+      <td>0.232+/-0.03</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The conclusions here are different from the results obtained with the simulated data. It appears that all neural network-based models have better performance than the Logistic Regression and the Decision Tree for the three metrics.</p>
+<p>In comparison with XGBoost and Random Forest, the sequential models are better w.r.t Average Precision, similar w.r.t Card Precision&#64;100, and worse w.r.t AUC-ROC.</p>
+<p>The sequential models are better than the regular feed-forward network, suggesting that the information brought by the history of transactions is relevant for fraud detection. The LSTM performs better than the CNN for the set of chosen hyperparameters, and the Attention brings a little value.</p>
+<p>The competitivity of the deep learning architectures comes at the great cost of hyperoptimization and tuning but is definitely valuable for all the reasons mentioned in the introduction (e.g. incremental).</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Chapter_7_DeepLearning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="SequentialModeling.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">4. </span>Sequential models and representation learning</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Summary.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Summary</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By <a href="https://mlg.ulb.ac.be/wordpress/">Machine Learning Group (Université Libre de Bruxelles - ULB)</a>.<br/>
+  
+    <div class="extra_footer">
+      <p>
+Code released under a <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPL v3.0 license</a>. 
+Prose and pictures released under a <a href="https://creativecommons.org/licenses/by-sa/4.0/"> CC BY-SA 4.0 license</a>.
+</p>
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
